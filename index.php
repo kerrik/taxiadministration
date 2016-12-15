@@ -1,7 +1,8 @@
 <?php
-if ( $_SERVER['REQUEST_URI'] === '/'){    
+
+if ($_SERVER['REQUEST_URI'] === '/' || stristr($_SERVER['REQUEST_URI'], '/?') != FALSE) {
     include 'webroot/start.php';
-}else{    
-    $include = (stristr($_SERVER['REQUEST_URI'],'?', true)?stristr($_SERVER['REQUEST_URI'],'?', true): $_SERVER['REQUEST_URI']);
+} else {
+    $include = (stristr($_SERVER['REQUEST_URI'], '?', true) ? stristr($_SERVER['REQUEST_URI'], '?', true) : $_SERVER['REQUEST_URI']);
     include "webroot/{$include}.php";
 }
