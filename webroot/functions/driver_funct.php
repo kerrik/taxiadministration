@@ -14,6 +14,7 @@
 function save_driver() {
     global $db;
     global $user;
+    if (!isset($_POST['save'])){return;}
     if ($_POST['save']) {
         echo 'spara posten';
         $sql = "INSERT INTO User (acronym, name, role, salt) VALUES (?, ?, 10, unix_timestamp());";

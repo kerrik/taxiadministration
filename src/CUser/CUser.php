@@ -14,7 +14,7 @@ class CUser {
     private $user_data = array();
 
     public function __construct() {
-;
+        ;
         // convert $users to objekt ...
         $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
@@ -60,20 +60,23 @@ class CUser {
                   user_data_sort
                 ;'; // end $sql
 
-        $row = $db->query_DB($sql, array($id), true);
+        $row = $db->query_DB($sql, array($id), FALSE);
         if ($row) {
             do {
                 $user_data[] = $row;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id == -1) {
+        if ($id == '-1') {
+            dump($id);
             foreach ($user_data as $row) {
+                dump($row);
                 $row->value = $_POST[$row->user_data_descr];
+                dump($row);
             }
-            dump($user_data);
-            return $user_data;
+//        dump($user_data);
         }
+        return $user_data;
     }
 
     // Kollar i $_SESSION om någon är inloggad och hämtar uppgifterna därifrån

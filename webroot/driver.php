@@ -73,6 +73,7 @@ function driverinfo() {
     }
     echo $selected_driver;
     foreach ($user->user_data($selected_driver) as $userdata) {
+//        dump($userdata);
         $content .= "<label>{$userdata->user_data_descr}  </label>";
         $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
     }
