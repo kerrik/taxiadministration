@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * CUser är en class för att hålla ordning på om en användare är inloggad eller 
  * inte, sköta in och utloggningar samt i förlägningen kunna ge all behövd
@@ -9,95 +7,131 @@
  *
  * @author peder
  */
-class CUser{
-    private $user = null ;
-    private $users = array() ;
-    
+class CUser {
+
+    private $user = null;
+    private $users = array();
+    private $user_data = array();
+
     public function __construct() {
-        if(isset($_POST['login'])){ $this->login();}
-        if(isset($_POST['logout'])){unset ($_SESSION['user']);}
+;
+        // convert $users to objekt ...
+        $this->user = (object) $this->user;
+        if (isset($_POST['login'])) {
+            $this->login();
+        }
+        if (isset($_POST['logout'])) {
+            unset($_SESSION['user']);
+        }
+        $this->get_users();
+        $this->logincheck();
+    }
+
+//end __construct
+
+    private function get_users() {
+        // Fyller $users med alla användare
         global $db;
-        $this->get_users() ;
-        $this->get_user_data(1) ;
-        $this->logincheck() ;
-    }//end __construct
-    
-    // Fyller $users med alla användare
-    private function get_users(){
-        global $db ;
-        $sql = 'SELECT id, acronym, name FROM User;' ;
-        $row = $db->query_DB($sql, array(),false) ;
-        if( $row ){
+        $sql = 'SELECT id, acronym, name, role FROM User ORDER BY name;';
+        $row = $db->query_DB($sql, array(), false);
+        if ($row) {
             do {
-                    $this->users[] = $row ;
-                    $row = $db->fetch_DB() ;
-            }while( !$row == false );
+                $this->users[] = $row;
+                $row = $db->fetch_DB();
+            } while (!$row == false);
         }
     }
-    
-    private function get_user_data( $id ){
-        global $db ;
-        
+
+    private function get_user_data($id) {
+        // Hämtar alla data för en användare
+        global $db;
         $sql = 'SELECT 
-                  user_data_sort,
                   user_data_descr,
                   value,
-                  value_dec
+                  value_dec,
+                  user_data_key.user_data_id 
                 FROM
                   user_data_key
                 LEFT JOIN
                  user_data
                 ON
-                 (user_data_key.user_data_id = user_data.user_data_id)
+                 (user_data_key.user_data_id = user_data.user_data_id and user = ?)
                 ORDER BY
                   user_data_sort
-                ;' ; // end $sql
-        
-        $db->query_DB($sql, array($id));
-//        $user_data = $db->query_DB() ;
+                ;'; // end $sql
+
+        $row = $db->query_DB($sql, array($id), true);
+        if ($row) {
+            do {
+                $user_data[] = $row;
+                $row = $db->fetch_DB();
+            } while (!$row == false);
+        }
+        if ($id == -1) {
+            foreach ($user_data as $row) {
+                $row->value = $_POST[$row->user_data_descr];
+            }
+            dump($user_data);
+            return $user_data;
+        }
     }
-    
+
     // Kollar i $_SESSION om någon är inloggad och hämtar uppgifterna därifrån
-    public function logincheck(){
-        if(isset($_SESSION['user'])){            
+    public function logincheck() {
+        if (isset($_SESSION['user'])) {
             global $db;
-            $sql = "SELECT id, acronym, name FROM User WHERE id = ?;";
-            $db->query_DB($sql, array($_SESSION['user']));
-            $this->user->logged_in = isset($this->user->id)? true: false ;
-        }else{
-            $user['logged_in'] = false;
-            $this->user = (object) $user;
+            $sql = "SELECT id, acronym, name, role FROM User WHERE id = ?;";
+            $this->user = $db->query_DB($sql, array($_SESSION['user']), FALSE);
+            $this->user->logged_in = isset($this->user->id) ? true : false;
+        } else {
+            $user->logged_in = false;
         }
-            
-        return $this->user->logged_in;      
-    }//end logincheck()
-    
-    //metod för inloggning
-    public function login(){
-        global $db;
-        dump($_POST);
-        $sql = "SELECT id, acronym, name FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
-        $this->user = $db->query_DB($sql, array($_POST['acronym'], $_POST['password']),TRUE);
-        if(isset($this->user->id)) {
-          $_SESSION['user'] = $this->user->id;
-          echo 'ska det vara såhär';
-        }
-    }// end login()
-    
-//    metod för utloggning
-    public function logged_in(){
+
         return $this->user->logged_in;
-    }   
-    public function id(){
-            return $this->user->id;
     }
-    public function name(){
-            return $this->user->name;
+
+//end logincheck()
+    //metod för inloggning
+    public function login() {
+        global $db;
+        $sql = "SELECT id FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
+        $this->user = $db->query_DB($sql, array($_POST['acronym'], $_POST['password']), FALSE);
+        if (isset($this->user->id)) {
+            $_SESSION['user'] = $this->user->id;
+        }
     }
-    public function acronym(){
-            return $this->user->acronym;
+
+// end login()
+//    metod för utloggning
+    public function logged_in() {
+        return $this->user->logged_in;
     }
-    public function users(){
+
+    public function id() {
+        return $this->user->id;
+    }
+
+    public function name() {
+        return $this->user->name;
+    }
+
+    public function acronym() {
+        return $this->user->acronym;
+    }
+
+    public function role() {
+        return $this->user->role;
+    }
+
+    public function users() {
         return $this->users;
     }
+
+    public function user_data($id = false) {
+        if ($id) {
+            $return = $this->get_user_data($id);
+        }
+        return $return;
+    }
+
 }

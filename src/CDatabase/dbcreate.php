@@ -19,13 +19,14 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'User' , 'sql'=> <<<EOF
   acronym CHAR(12) UNIQUE NOT NULL,
   name VARCHAR(80),
   password CHAR(32),
+  role INT,
   salt INT NOT NULL
 ) ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO User (acronym, name, salt) VALUES 
-    ('doe', 'John/Jane Doe', unix_timestamp()),
-    ('admin', 'Administrator', unix_timestamp())
+INSERT INTO User (acronym, name, role, salt) VALUES 
+    ('doe', 'John/Jane Doe', 10, unix_timestamp()),
+    ('admin', 'Administrator', 1, unix_timestamp())
 ;
 UPDATE User SET password = md5(concat('doe', salt)) WHERE acronym = 'doe';
 UPDATE User SET password = md5(concat('admin', salt)) WHERE acronym = 'admin';
@@ -59,10 +60,10 @@ EOF
 , 'data'=> <<<EOF
 INSERT INTO user_data_key (user_data_id, user_data_sort, user_data_descr)
 VALUES
-(1, 2, 'TFL'),
+(1, 4, 'TFL'),
 (2, 1, 'Tel'),
 (3, 3, 'Mobil'),
-(4, 4, 'Adress');
+(4, 3, 'Adress');
      
 EOF
     ); //end $dbcreate
@@ -80,7 +81,14 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'user_data' , 'sql'=> <<<EOF
 EOF
 , 'data'=> <<<EOF
 INSERT INTO user_data (user, user_data_id, value) VALUES 
-    ('1', 1, '1234567');
+    ('1', 1, '9876543'),        
+    ('1', 2, '060 336 678'),        
+    ('1', 3, '076 578 945'),        
+    ('1', 4, 'Hemgatan 6'),
+    ('2', 1, '1234567'),        
+    ('2', 2, '08 30 20 40'),        
+    ('2', 3, '070 256 235'),        
+    ('2', 4, 'Stortorget 4 ');
      
 EOF
     ); //end $dbcreate
