@@ -14,7 +14,9 @@
 function save_driver() {
     global $db;
     global $user;
-    if (!isset($_POST['save'])){return;}
+    if (!isset($_POST['save'])) {
+        return;
+    }
     if ($_POST['save']) {
         echo 'spara posten';
         $sql = "INSERT INTO User (acronym, name, role, salt) VALUES (?, ?, 10, unix_timestamp());";
@@ -22,8 +24,11 @@ function save_driver() {
         $user_array[] = $_POST['name'];
         $succed = $db->DB_execute($sql, $user_array, FALSE);
         if ($succed) {
+            echo 'jag lyckades';
             $id = $db->id_new_post();
+            $_POST['use_driver'] = $id;
             $succed = $db->DB_execute($sql, $user_array, FALSE);
+            $user->get_users();
         }
     } else {
         

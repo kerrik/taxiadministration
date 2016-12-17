@@ -39,7 +39,7 @@ include_once (TANGO_THEME_PATH);
 function driverinfo() {
 //fyller $tango med lite data att skriva ut...
     global $user;
-
+    dump($_POST);
     $selected_driver = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
 //#####################################################################
 

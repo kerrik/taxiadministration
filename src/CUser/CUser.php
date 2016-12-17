@@ -29,7 +29,7 @@ class CUser {
 
 //end __construct
 
-    private function get_users() {
+    public function get_users() {
         // Fyller $users med alla användare
         global $db;
         $sql = 'SELECT id, acronym, name, role FROM User ORDER BY name;';
@@ -45,6 +45,8 @@ class CUser {
     private function get_user_data($id) {
         // Hämtar alla data för en användare
         global $db;
+        $new_diver = (isset($_POST['new_driver'])) ? TRUE : FALSE;
+        dump($_POST);
         $sql = 'SELECT 
                   user_data_descr,
                   value,
@@ -67,7 +69,7 @@ class CUser {
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id == '-1') {
+        if ($id == '-1' && $new_diver) {
             dump($id);
             foreach ($user_data as $row) {
                 dump($row);
