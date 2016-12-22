@@ -97,7 +97,8 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'data_key' , 'sql'=> <<<EOF
   data_parent INT NOT NULL,
   data_key INT NOT NULL,
   data_sort INT,
-  data_descr CHAR(10)  
+  data_descr CHAR(10) , 
+  user INT 
 ) ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
