@@ -14,7 +14,7 @@ class CUser {
     private $user_data = array();
 
     public function __construct() {
-        ;
+//        dump($_POST);
         // convert $users to objekt ...
         $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
@@ -45,8 +45,7 @@ class CUser {
     private function get_user_data($id) {
         // Hämtar alla data för en användare
         global $db;
-        $new_diver = (isset($_POST['new_driver'])) ? TRUE : FALSE;
-        dump($_POST);
+        $new_driver = (isset($_POST['new_driver'])) ? TRUE : FALSE;
         $sql = 'SELECT 
                   user_data_descr,
                   value,
@@ -62,22 +61,19 @@ class CUser {
                   user_data_sort
                 ;'; // end $sql
 
-        $row = $db->query_DB($sql, array($id), FALSE);
+        $row = $db->query_DB($sql, array($id), TRUE);
         if ($row) {
             do {
                 $user_data[] = $row;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id == '-1' && $new_diver) {
-            dump($id);
+        if ($id == '-1' && $new_driver) {
             foreach ($user_data as $row) {
-                dump($row);
                 $row->value = $_POST[$row->user_data_descr];
-                dump($row);
             }
-//        dump($user_data);
         }
+//        dump($user_data);
         return $user_data;
     }
 
@@ -89,9 +85,8 @@ class CUser {
             $this->user = $db->query_DB($sql, array($_SESSION['user']), FALSE);
             $this->user->logged_in = isset($this->user->id) ? true : false;
         } else {
-            $user->logged_in = false;
+            $this->user->logged_in = false;
         }
-
         return $this->user->logged_in;
     }
 
@@ -132,7 +127,7 @@ class CUser {
         return $this->users;
     }
 
-    public function user_data($id = false) {
+    public function user_data($id = -1) {
         if ($id) {
             $return = $this->get_user_data($id);
         }

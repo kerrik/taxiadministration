@@ -48,7 +48,6 @@ INSERT INTO system (name, value) VALUES
      
 EOF
     ); //end $dbcreate
-
 $dbcreate[] = array('type'=>'TABLE', 'name'=>'user_data_key' , 'sql'=> <<<EOF
     CREATE TABLE user_data_key
 (
@@ -67,8 +66,6 @@ VALUES
      
 EOF
     ); //end $dbcreate
-
-
 $dbcreate[] = array('type'=>'TABLE', 'name'=>'user_data' , 'sql'=> <<<EOF
     CREATE TABLE user_data 
 (
@@ -89,6 +86,64 @@ INSERT INTO user_data (user, user_data_id, value) VALUES
     ('2', 2, '08 30 20 40'),        
     ('2', 3, '070 256 235'),        
     ('2', 4, 'Stortorget 4 ');
+     
+EOF
+    ); //end $dbcreate
+
+$dbcreate[] = array('type'=>'TABLE', 'name'=>'data_key' , 'sql'=> <<<EOF
+    CREATE TABLE data_key
+(
+  data_id INT AUTO_INCREMENT PRIMARY KEY,
+  data_parent INT NOT NULL,
+  data_key INT NOT NULL,
+  data_sort INT,
+  data_descr CHAR(10)  
+) ENGINE INNODB CHARACTER SET utf8;
+EOF
+, 'data'=> <<<EOF
+INSERT INTO data_key (data_parent, data_key, data_sort, data_descr)
+VALUES
+(1, 1, 4, 'TFL'),
+(1, 2, 1, 'Tel'),
+(1, 3, 3, 'Mobil'),
+(1, 4, 3, 'Adress'),
+(2, 5, 1, 'Tel'),
+(2, 6, 2, 'Regnr'),
+(2, 7, 3, 'Typ'),
+(2, 8, 4, 'Försäkring');
+     
+EOF
+    ); //end $dbcreate
+
+
+$dbcreate[] = array('type'=>'TABLE', 'name'=>'data_value' , 'sql'=> <<<EOF
+    CREATE TABLE data_value
+(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  parent int,
+  data_id int,
+  value char(100),
+  value_dec DECIMAL(10,2)
+) ENGINE INNODB CHARACTER SET utf8;
+EOF
+, 'data'=> <<<EOF
+INSERT INTO data_value (parent, data_id, value) VALUES 
+    ('1', 1, '9876543'),        
+    ('1', 2, '060 336 678'),        
+    ('1', 3, '076 578 945'),        
+    ('1', 4, 'Hemgatan 6'),
+    ('2', 1, '1234567'),        
+    ('2', 2, '08 30 20 40'),        
+    ('2', 3, '070 256 235'),        
+    ('2', 4, 'Stortorget 4 '),    
+    ('1', 1, '070150820'),        
+    ('1', 2, 'KSM780'),        
+    ('1', 3, 'Volvo V70'),        
+    ('1', 4, 'Norska Brand'),
+    ('2', 1, '07150822'),        
+    ('2', 2, 'XXX999'),        
+    ('2', 3, 'MB 300E'),        
+    ('2', 4, 'Norska Brand');
      
 EOF
     ); //end $dbcreate

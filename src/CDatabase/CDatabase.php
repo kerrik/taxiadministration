@@ -84,7 +84,7 @@ class CDatabase {
         return $this->stm->execute($parametrar);
     }
 
-    protected function create_db($path) {
+    public function create_db($path) {
         include $path;
         $sql = '';
         foreach ($dbcreate as $query) {

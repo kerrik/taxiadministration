@@ -27,7 +27,7 @@ include( __DIR__ . '/config.php');
 $tango->set_property('title', "Förare");
 $tango->set_property('title_append', "Administrera förare");
 
-include_once TANGO_FUNCTIONS_PATH. "driver_funct.php";
+include_once TANGO_FUNCTIONS_PATH . "driver_funct.php";
 
 save_driver();
 
@@ -47,13 +47,26 @@ function driverinfo() {
     $content .= "<form action='' method='post'>";
     $content .= "<fieldset>";
     $content .= "<legend>Förare</legend>";
-    $content .="<p>";
+    $content .= "<p>";
     if ($selected_driver == -1) {
-        $content .= "<label>Inloggning  </label>";
-        $content .= "<input type='text' name='acronym' value=''></br>\n";
-        $content .= "<label>Namn  </label>";
-        $content .= "<input type='text' name='name' value=''></br>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'><label>Inloggning  </label></div>";
+        $content .= "<div class='driver-form-input'><input type='text' name='acronym' value=''></div></br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'><label>Namn  </label></div>";
+        $content .= "<div class='driver-form-input'><input type='text' name='name' value=''></br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'><label>Password  </label></div>";
+        $content .= "<div class='driver-form-input'><input type='text' name='password' value=''></div></br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'><label>Repetera  </label></div>";
+        $content .= "<div class='driver-form-input'><input type='text' name='password_check' value=''></div></br>\n";
+        $content .= "</div>";
     } else {
+        $content .= "<div class='driver-form-row'>\n";
         $content .= "<select name='use_driver'>";
         if ($user->role() == 1 AND $selected_driver != -1) {
             $content .= "<option value='-1'>Ny förare</option>\n";
@@ -64,21 +77,28 @@ function driverinfo() {
         }
 
         $content .= "</select>";
-        $content .= "<input type='submit' value='Visa'></br>\n";
+        $content .= "</div";
+        $content .= "<div class='driver-form-label'><input type='submit' value='Visa'></br>\n";
+        $content .= "</div>\n";
         $content .= "</fieldset>\n";
         $content .= "<div id='form-driverinfo'></br>\n";
         $content .= "<form action='' method='post'></br>\n";
         $content .= "<fieldset></br>\n";
         $content .= "<legend>Förarinfo</legend>\n";
     }
-    echo $selected_driver;
     foreach ($user->user_data($selected_driver) as $userdata) {
 //        dump($userdata);
-        $content .= "<label>{$userdata->user_data_descr}  </label>";
-        $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'><label>{$userdata->user_data_descr}  </label></div>";
+        $content .= "<div class='driver-form-label'>"
+                . "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
+        $content .= "</div>\n";
     }
     if ($user->role() == 1) {
+
+        $content .= "<div class='driver-form-row'>\n";
         $content .= "<button type='submit'  name='save' value='TRUE'>Sparad</button></br>\n";
+        $content .= "</div>\n";
     }
     $content .= "";
     $content .= "</fieldset>";

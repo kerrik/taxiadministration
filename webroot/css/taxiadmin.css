@@ -3,3 +3,22 @@
     Author     : peder
 */
 
+/* föraradministration */
+
+.driver-form-row, .driver-form-label, driver-form-field{
+    float: left;
+    min-height: 3em;
+}
+
+.driver-form-row{    
+    min-width: 100%
+}
+
+.driver-form-label{
+    min-width: 6em; 
+    
+}
+
+.driver-form-field{
+    min-width: 20em
+}

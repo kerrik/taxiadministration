@@ -88,24 +88,16 @@ if ($use_login) {
 }
 
 include 'menu.php';
-
-//$main_menu = array(
-//    'id'=>'',
-//    'vertical'=>false,
-//    'choise'=>array(
-//        'home'  => array('text'=>'Home',  'url'=>'me.php', 'class'=>''),
-//       'dice' => array('text'=>'Dice', 'url'=>'dice.php', 'class'=>''),
-//       'blog' => array('text'=>'Blog', 'url'=>'blog.php', 'class'=>''),
-//       'movie' => array('text'=>'Movie', 'url'=>'movie.php', 'class'=>''),
-//       'red' => array('text'=>'Redovisning', 'url'=>'redovisning.php', 'class'=>''),
-//       'om' => array('text'=>'Om', 'url'=>'om.php?p=om', 'class'=>''),
-//       'source'  => array('text'=>'Källkod',  'url'=>'source.php', 'class'=>''),
-//        
-//    )
-//);
-
-
-
+if ($include != '/cab'){
+    if (isset($_SESSION)){
+        unset($_SESSION['cab']);
+        echo'Nu ere inte bilen';
+        dump($_SESSION);
+    }  else {
+         echo 'Finns inte';
+    }
+}
+    
 /**
  * Settings for $tango.
  * 
