@@ -14,12 +14,17 @@
 function save_driver() {
     global $db;
     global $user;
-    $return = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
+    $return = [];
+    $return['new_driver']= check_password();
+    $return['id'] = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
+    $return=(object)$return;
+    dump($return);
     if (!isset($_POST['save'])) {
-        return (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
+        return $return;
     }
-    if (!check_password()) {
-        return -2;
+    if (!empty($_POST['password']) && !$return->new_driver->return) {
+        $return->id = -2;
+        return $return;
     }
     if ($_POST['save']) {
         echo 'spara posten';
@@ -33,10 +38,8 @@ function save_driver() {
             $_POST['use_driver'] = $id;
             $sql = "INSERT INTO user_data (user, user_data_id, value) VALUES (?, ?, ?)";
             foreach ($user->user_data() as $row) {
-//                dump($_POST);
                 echo $row->user_data_descr;
                 if (!empty($_POST[$row->user_data_descr])) {
-//                dump($_POST);
                     unset($user_array);
                     $user_array[] = $id;
                     $user_array[] = $row->user_data_id;
@@ -46,22 +49,24 @@ function save_driver() {
             }
             $user->get_users();
         }
-    return $id;
+    return $return;
         
     }
 }
 
 function check_password() {
+    echo 'kollar här';
+//    dump($_POST);
     global $new_driver;
         $new_driver['name']='';
         $new_driver['acronym']='';
-        $return = FALSE;
+        $new_driver['return'] = FALSE;
     if ($_POST['password'] === $_POST['password_check']){
         $return = TRUE;
     }else{
         $new_driver['name']=$_POST['name'];
-        $new_driver['acronym']=$_POST['acronym'];
-        $return = FALSE;
+        $new_driver['acronym']=$_POST['acronym']; 
+        $new_driver['return'] = FALSE;
     }
-    return $return;
+    return (object)$new_driver;
 }

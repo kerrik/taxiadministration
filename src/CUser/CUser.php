@@ -61,14 +61,14 @@ class CUser {
                   user_data_sort
                 ;'; // end $sql
 
-        $row = $db->query_DB($sql, array($id), TRUE);
+        $row = $db->query_DB($sql, array($id), FALSE);
         if ($row) {
             do {
                 $user_data[] = $row;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id == '-1' && $new_driver) {
+        if ($id <-1) {
             foreach ($user_data as $row) {
                 $row->value = $_POST[$row->user_data_descr];
             }

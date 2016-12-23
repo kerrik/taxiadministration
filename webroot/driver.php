@@ -29,8 +29,6 @@ $tango->set_property('title_append', "Administrera förare");
 
 include_once TANGO_FUNCTIONS_PATH . "driver_funct.php";
 
-save_driver();
-
 $tango->set_property('main', driverinfo());
 
 include_once 'footer.php';
@@ -39,8 +37,11 @@ include_once (TANGO_THEME_PATH);
 function driverinfo() {
 //fyller $tango med lite data att skriva ut...
     global $user;
-    dump($_POST);
-    $selected_driver = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
+    $driver = save_driver();
+    dump($driver);
+    $selected_driver = $driver->id;
+    dump($selected_driver);
+    echo '$selected_driver =' . $selected_driver;
 //#####################################################################
 
     $content = "<div id='form-driver'>";
@@ -48,14 +49,15 @@ function driverinfo() {
     $content .= "<fieldset>";
     $content .= "<legend>Förare</legend>";
     $content .= "<p>";
-    if ($selected_driver == -1) {
+    if ($selected_driver < 0) {
+        $content .= "<input type='hidden' name='use_driver' value= -2>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'><label>Inloggning  </label></div>";
-        $content .= "<div class='driver-form-input'><input type='text' name='acronym' value=''></div></br>\n";
+        $content .= "<div class='driver-form-input'><input type='text' name='acronym' value='{$driver->new_driver->acronym}'></div></br>\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'><label>Namn  </label></div>";
-        $content .= "<div class='driver-form-input'><input type='text' name='name' value=''></br>\n";
+        $content .= "<div class='driver-form-input'><input type='text' name='name' value='{$driver->new_driver->name}'></br>\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'><label>Password  </label></div>";

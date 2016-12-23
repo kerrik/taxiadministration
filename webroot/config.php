@@ -80,7 +80,7 @@ if ($use_db) {
 //    $db_connect['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");
 //   
     //sedan en ny instans av den
-    //include_once 'dbcreate/dbcreate.php';
+    //include_once 'dbcreate/dbcreate.php'; 
     $db = new CDatabase();
 }
 if ($use_login) {
@@ -91,8 +91,6 @@ include 'menu.php';
 if ($include != '/cab'){
     if (isset($_SESSION)){
         unset($_SESSION['cab']);
-        echo'Nu ere inte bilen';
-        dump($_SESSION);
     }  else {
          echo 'Finns inte';
     }
@@ -113,7 +111,7 @@ $tango->set_property('modernizr', 'js/modernizr.js');
 // 
 // jquery har två möjligheter just nu, antingen använda goggles eller inte alls. 
 // Standard är den avslagen
-$tango->set_property('jquery', true);
+$tango->set_property('jquery', TRUE);
 // $tango->set_property('javascript_include', array());
 // 
 // För att få fart på google analytics skickar man sitt kontoid till CTango
