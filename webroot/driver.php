@@ -99,7 +99,7 @@ function driverinfo() {
     if ($user->role() == 1) {
 
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<button type='submit'  name='save' value='TRUE'>Sparad</button></br>\n";
+        $content .= "<button type='submit'  name='save' value='1'>Spara</button></br>\n";
         $content .= "</div>\n";
     }
     $content .= "";

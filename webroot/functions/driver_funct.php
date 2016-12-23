@@ -14,19 +14,17 @@
 function save_driver() {
     global $db;
     global $user;
-    $return = [];
-    $return['new_driver']= check_password();
-    $return['id'] = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
-    $return=(object)$return;
-    dump($return);
+    $test = $return = new stdClass();
+    $return->new_driver = check_password();
+    $return->id = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
     if (!isset($_POST['save'])) {
         return $return;
     }
-    if (!empty($_POST['password']) && !$return->new_driver->return) {
+    if (!$return->new_driver->return) {
         $return->id = -2;
         return $return;
     }
-    if ($_POST['save']) {
+    if ($_POST['save']==1) {
         echo 'spara posten';
         $sql = "INSERT INTO User (acronym, name, role, salt) VALUES (?, ?, 10, unix_timestamp());";
         $user_array[] = $_POST['acronym'];
@@ -49,24 +47,22 @@ function save_driver() {
             }
             $user->get_users();
         }
-    return $return;
-        
+        return $return;
     }
 }
 
 function check_password() {
-    echo 'kollar här';
-//    dump($_POST);
-    global $new_driver;
-        $new_driver['name']='';
-        $new_driver['acronym']='';
-        $new_driver['return'] = FALSE;
-    if ($_POST['password'] === $_POST['password_check']){
+    $new_driver = new stdClass();
+    $new_driver->name = '';
+    $new_driver->acronym = '';
+    $new_driver->return = FALSE;
+    if (!empty($_POST['password']) && $_POST['password'] === $_POST['password_check']) {
         $return = TRUE;
-    }else{
-        $new_driver['name']=$_POST['name'];
-        $new_driver['acronym']=$_POST['acronym']; 
-        $new_driver['return'] = FALSE;
+    } else {
+        dump($_POST);
+        $new_driver->name = (empty($_POST['name']))? '':$_POST['name'];
+        $new_driver->acronym = (empty($_POST['acronym']))?'' :$_POST['acronym'];
+        $new_driver->return = FALSE;
     }
-    return (object)$new_driver;
+    return $new_driver;
 }
