@@ -45,18 +45,17 @@ class CCab{
         global $db;
         $new_driver = (isset($_POST['new_driver'])) ? TRUE : FALSE;
         $sql = 'SELECT 
-                  cab_data_descr,
+                  data_value.id,
+                  data_descr,
                   value,
-                  value_dec,
-                  cab_data_key.cab_data_id 
-                FROM
-                  cab_data_key
+                  value_dec FROM
+                  (select * from data_key where owner=2) as a
                 LEFT JOIN
-                 cab_data
+                 data_value
                 ON
-                 (cab_data_key.cab_data_id = cab_data.cab_data_id and cab = ?)
+                 (data_id = key_id and parent=?)
                 ORDER BY
-                  cab_data_sort
+                  data_sort
                 ;'; // end $sql
 
         $row = $db->query_DB($sql, array($id), FALSE);
