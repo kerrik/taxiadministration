@@ -111,6 +111,7 @@ class CCab{
     }
 
     public function cabs() {
+        
         return $this->cabs;
     }
     public function first_cab() {
@@ -121,6 +122,7 @@ class CCab{
         if ($id) {
             $return = $this->get_cab_data($id);
         }
+        dump($return);
         return $return;
     }
 

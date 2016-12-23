@@ -90,9 +90,9 @@ function cabinfo() {
     foreach ($cab->cab_data($selected_cab) as $cabdata) {
 //        dump($cabdata);
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>{$cabdata->user_data_descr}  </label></div>";
+        $content .= "<div class='cab-form-label'><label>{$cabdata->data_descr}  </label></div>";
         $content .= "<div class='cab-form-label'>"
-                . "<input type='text' name='{$cabdata->user_data_descr}' value='{$cabdata->value}'></br>\n";
+                . "<input type='text' name='{$cabdata->data_descr}' value='{$cabdata->value}'></br>\n";
         $content .= "</div>\n";
     }
     if ($cab->role() == 1) {
