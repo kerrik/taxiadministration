@@ -14,7 +14,7 @@
 function save_driver() {
     global $db;
     global $user;
-    $test = $return = new stdClass();
+    $return = new stdClass();
     $return->new_driver = check_password();
     $return->id = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
     if (!isset($_POST['save'])) {
