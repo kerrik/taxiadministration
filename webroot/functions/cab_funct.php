@@ -13,13 +13,14 @@
 function save_cab() {
     global $db;
     global $cab;
-    echo 'session';
+    echo 'session';    
+    $return = new stdClass();
     dump($_SESSION);
     if (empty($_SESSION['cab'])){$_SESSION['cab'] = $cab->first_cab();}
     dump($_SESSION);
-    $return = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
+    $return->id = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
     if (!isset($_POST['save'])) {
-        return (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
+        return $return->id;
     }
     if ($_POST['save']) {
         echo 'spara posten';

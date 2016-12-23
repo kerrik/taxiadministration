@@ -94,7 +94,7 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'data_key' , 'sql'=> <<<EOF
     CREATE TABLE data_key
 (
   data_id INT AUTO_INCREMENT PRIMARY KEY,
-  data_parent INT NOT NULL,
+  owner INT NOT NULL,
   data_key INT NOT NULL,
   data_sort INT,
   data_descr CHAR(10) , 
@@ -102,7 +102,7 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'data_key' , 'sql'=> <<<EOF
 ) ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO data_key (data_parent, data_key, data_sort, data_descr)
+INSERT INTO data_key (owner, data_key, data_sort, data_descr)
 VALUES
 (1, 1, 4, 'TFL'),
 (1, 2, 1, 'Tel'),
@@ -122,13 +122,13 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'data_value' , 'sql'=> <<<EOF
 (
   id INT AUTO_INCREMENT PRIMARY KEY,
   parent int,
-  data_id int,
+  key_id int,
   value char(100),
   value_dec DECIMAL(10,2)
 ) ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO data_value (parent, data_id, value) VALUES 
+INSERT INTO data_value (parent, key_id, value) VALUES 
     ('1', 1, '9876543'),        
     ('1', 2, '060 336 678'),        
     ('1', 3, '076 578 945'),        
@@ -137,14 +137,14 @@ INSERT INTO data_value (parent, data_id, value) VALUES
     ('2', 2, '08 30 20 40'),        
     ('2', 3, '070 256 235'),        
     ('2', 4, 'Stortorget 4 '),    
-    ('1', 1, '070150820'),        
-    ('1', 2, 'KSM780'),        
-    ('1', 3, 'Volvo V70'),        
-    ('1', 4, 'Norska Brand'),
-    ('2', 1, '07150822'),        
-    ('2', 2, 'XXX999'),        
-    ('2', 3, 'MB 300E'),        
-    ('2', 4, 'Norska Brand');
+    ('1', 5, '070150820'),        
+    ('1', 6, 'KSM780'),        
+    ('1', 7, 'Volvo V70'),        
+    ('1', 8, 'Norska Brand'),
+    ('2', 5, '07150822'),        
+    ('2', 6, 'XXX999'),        
+    ('2', 7, 'MB 300E'),        
+    ('2', 8, 'Norska Brand');
      
 EOF
     ); //end $dbcreate
