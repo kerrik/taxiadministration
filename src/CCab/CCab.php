@@ -36,6 +36,7 @@ class CCab{
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
+//        print_a($this->cabs, 'get_cabs');
     }
     
     
@@ -122,7 +123,6 @@ class CCab{
         if ($id) {
             $return = $this->get_cab_data($id);
         }
-        dump($return);
         return $return;
     }
 

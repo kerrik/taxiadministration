@@ -5,20 +5,21 @@
 
 /* föraradministration */
 
-.driver-form-row, .driver-form-label, driver-form-field{
+.driver-form-row, .driver-form-label, driver-form-field,
+.cab-form-row, .cab-form-label, cab-form-field{
     float: left;
     min-height: 3em;
 }
 
-.driver-form-row{    
+.driver-form-row, .cab-form-row{{    
     min-width: 100%
 }
 
-.driver-form-label{
+.driver-form-label, .driver-form-label{
     min-width: 6em; 
     
 }
 
-.driver-form-field{
+.driver-form-field, .driver-form-field{
     min-width: 20em
 }

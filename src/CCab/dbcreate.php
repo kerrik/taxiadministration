@@ -15,16 +15,19 @@ EOF
 $dbcreate[] = array('type'=>'TABLE', 'name'=>'Cab' , 'sql'=> <<<EOF
     CREATE TABLE Cab 
 (
-  id INT AUTO_INCREMENT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY, 
   cab CHAR(12) UNIQUE NOT NULL,
-  pass INT
+  pass INT,
+  start_date date ,
+  end_date date NOT NULL,
+  start_day int NOT NULL
 )
   ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO Cab (cab, pass) VALUES 
-    ('820', 2),
-    ('822', 2)
+INSERT INTO Cab (cab, pass, start_date, start_day) VALUES  
+    ('820', 2, unix_timestamp(), 0),
+    ('822', 2, unix_timestamp(), 0)
 ;
      
 EOF

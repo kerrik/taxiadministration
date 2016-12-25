@@ -102,7 +102,7 @@ class CDatabase {
         }
     }
 
-    public function dump() {
+    private function dump() {
         $html = '<p><i>You have made ' . $this->numQueries . ' database queries.</i></p><pre>';
         foreach ($this->queries as $key => $val) {
             $params = empty($this->params[$key]) ? null : htmlentities(print_r($this->params[$key], 1)) . '<br/></br>';

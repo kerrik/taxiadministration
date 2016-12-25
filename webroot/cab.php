@@ -42,7 +42,7 @@ function cabinfo() {
 //fyller $tango med lite data att skriva ut...
     global $cab;
     global $user;
-    $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['user'];
+    $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
 ////#####################################################################
 
     $content = "<div id='form-cab'>";
@@ -85,17 +85,17 @@ function cabinfo() {
         $content .= "<div id='form-cabinfo'></br>\n";
         $content .= "<form action='' method='post'></br>\n";
         $content .= "<fieldset></br>\n";
-        $content .= "<legend>Förarinfo</legend>\n";
+        $content .= "<legend>Bilinfo</legend>\n";
     }
     foreach ($cab->cab_data($selected_cab) as $cabdata) {
-//        dump($cabdata);
+        dump($cabdata,'cabdata');
         $content .= "<div class='cab-form-row'>\n";
         $content .= "<div class='cab-form-label'><label>{$cabdata->data_descr}  </label></div>";
         $content .= "<div class='cab-form-label'>"
                 . "<input type='text' name='{$cabdata->data_descr}' value='{$cabdata->value}'></br>\n";
         $content .= "</div>\n";
     }
-    if ($cab->role() == 1) {
+    if ($user->role() == 1) {
 
         $content .= "<div class='cab-form-row'>\n";
         $content .= "<button type='submit'  name='save' value='TRUE'>Sparad</button></br>\n";
