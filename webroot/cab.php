@@ -45,66 +45,76 @@ function cabinfo() {
     $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
 ////#####################################################################
 
-    $content = "<div id='form-cab'>";
-    $content .= "<form action='' method='post'>";
-    $content .= "<fieldset>";
-    $content .= "<legend>Förare</legend>";
-    $content .= "<p>";
+    $content = "<div id='form-cab'>\n";
+    $content .= "<form action='' method='post'>\n";
+    $content .= "<fieldset>\n";
+    $content .= "<legend>\nFörare\n</legend>\n";
     if ($selected_cab == -1) {
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>Inloggning  </label></div>";
-        $content .= "<div class='cab-form-input'><input type='text' name='acronym' value=''></div></br>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Inloggning  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='acronym' value=''></div>\n</br>\n";
         $content .= "</div>\n";
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>Namn  </label></div>";
-        $content .= "<div class='cab-form-input'><input type='text' name='name' value=''></br>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Namn  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='name' value=''></br>\n";
         $content .= "</div>\n";
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>Password  </label></div>";
-        $content .= "<div class='cab-form-input'><input type='text' name='password' value=''></div></br>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Password  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='password' value=''></div>\n</br>\n";
         $content .= "</div>\n";
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>Repetera  </label></div>";
-        $content .= "<div class='cab-form-input'><input type='text' name='password_check' value=''></div></br>\n";
-        $content .= "</div>";
+        $content .= "<div class='cab-form-label'>\n<label>Repetera  </label>\n</div>\n";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='password_check' value=''></div>\n</br>\n";
+        $content .= "</div>\n";
     } else {
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<select name='use_cab'>";
+        $content .= "<div class='cab-form-label'>\n";
+        $content .= "<select name='use_cab'>\n";
         if ($user->role() == 1 AND $selected_cab != -1) {
             $content .= "<option value='-1'>Ny bil</option>\n";
         }
         foreach ($cab->cabs() as $cabdata) {
-            $mark_selected = ($cabdata->cab == $selected_cab) ? 'SELECTED' : '';
+//        print_a($cabdata,'cabdata');
+            $mark_selected = ($cabdata->id == $selected_cab) ? 'SELECTED' : '';
             $content .= "<option value='{$cabdata->id}' {$mark_selected}>{$cabdata->cab}</option>\n";
         }
-        $content .= "</select>";
-        $content .= "</div";
-        $content .= "<div class='cab-form-label'><input type='submit' value='Visa'></br>\n";
+        $content .= "</select>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='cab-form-input'>\n<input type='submit' value='Visa'>\n";
+        $content .= "</div>\n";
         $content .= "</div>\n";
         $content .= "</fieldset>\n";
-        $content .= "<div id='form-cabinfo'></br>\n";
-        $content .= "<form action='' method='post'></br>\n";
-        $content .= "<fieldset></br>\n";
-        $content .= "<legend>Bilinfo</legend>\n";
+        $content .= "</form>\n";
+        $content .= "</div>\n";
+        $content .= "<div id='form-cabinfo'>\n";
+        $content .= "<form action='' method='post'>\n";
+        $content .= "<fieldset>\n";
+        $content .= "<legend>\nBilinfo\n</legend>\n";
+        $content .= "<div class='cab-form-content'>\n";
+        $content .= "<div class='cab-form-block left'>\n";
     }
     foreach ($cab->cab_data($selected_cab) as $cabdata) {
-        dump($cabdata,'cabdata');
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<div class='cab-form-label'><label>{$cabdata->data_descr}  </label></div>";
-        $content .= "<div class='cab-form-label'>"
-                . "<input type='text' name='{$cabdata->data_descr}' value='{$cabdata->value}'></br>\n";
+        $content .= "<label class='cab-form-label'>\n{$cabdata->data_descr}</label>\n";
+        $content .= "<div class='cab-form-label'>\n"
+                . "<input type='text' name='{$cabdata->data_descr}' value='{$cabdata->value}'>\n</div>\n";
         $content .= "</div>\n";
     }
+        $content .= "</div>\n";
+    $content .= "<div class='cab-form-block left'>\n";
+    include_once TANGO_VIEWS_PATH . "cab_pass.php";
+    $content .= "</div>\n";
+    $content .= "</div>\n";
     if ($user->role() == 1) {
 
         $content .= "<div class='cab-form-row'>\n";
-        $content .= "<button type='submit'  name='save' value='TRUE'>Sparad</button></br>\n";
+        $content .= "<button type='submit'  name='save' value='TRUE'>Spara</button></br>\n";
         $content .= "</div>\n";
     }
     $content .= "";
-    $content .= "</fieldset>";
-    $content .= "</form>";
-    $content .= "</div>";
-
+    $content .= "</fieldset>\n";
+    $content .= "</form>\n";
+    $content .= "</div>\n";
+    $cab->pass_time($selected_cab);
     return $content;
 }

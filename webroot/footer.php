@@ -18,14 +18,14 @@ EOF
 
 
 $tango->set_property('footer', <<<EOD
-         <div class='left sitefooter'>
-            <a  href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a> | <a href='https://github.com/kerrik/ooophp'>tango på GitHub</a>
-        </div>
-        <div class='sitefooter left'>
-        </div>
-            &copy;Peder Nordenstad <a href='mailto:peder@nordenstad.se'>(peder@nordenstad.se)</a>
-        <div class='right sitefooter'>
+         <div class='left sitefooter'>\n
+            <a  href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a>\n | \n<a href='https://github.com/kerrik/ooophp'>tango på GitHub</a>\n
+        </div>\n
+        <div class='sitefooter left'>\n
+            &copy;Peder Nordenstad \n<a href='mailto:peder@nordenstad.se'>(peder@nordenstad.se)</a>\n
+        </div>\n
+        <div class='right sitefooter'>\n
             $logged_in
-        </div>
+        </div>\n
 EOD
 );

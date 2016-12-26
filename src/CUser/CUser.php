@@ -14,7 +14,6 @@ class CUser {
     private $user_data = array();
 
     public function __construct() {
-//        dump($_POST);
         // convert $users to objekt ...
         $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
@@ -73,7 +72,6 @@ class CUser {
                 $row->value = $_POST[$row->user_data_descr];
             }
         }
-//        dump($user_data);
         return $user_data;
     }
 

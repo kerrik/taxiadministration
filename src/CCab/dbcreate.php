@@ -12,12 +12,13 @@ EOF
  */
 
 
-$dbcreate[] = array('type'=>'TABLE', 'name'=>'Cab' , 'sql'=> <<<EOF
-    CREATE TABLE Cab 
+$dbcreate[] = array('type'=>'TABLE', 'name'=>'cab' , 'sql'=> <<<EOF
+    CREATE TABLE cab 
 (
   id INT AUTO_INCREMENT PRIMARY KEY, 
   cab CHAR(12) UNIQUE NOT NULL,
   pass INT,
+  pass_time TEXT,
   start_date date ,
   end_date date NOT NULL,
   start_day int NOT NULL
@@ -25,7 +26,7 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'Cab' , 'sql'=> <<<EOF
   ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO Cab (cab, pass, start_date, start_day) VALUES  
+INSERT INTO cab (cab, pass, start_date, start_day) VALUES  
     ('820', 2, unix_timestamp(), 0),
     ('822', 2, unix_timestamp(), 0)
 ;

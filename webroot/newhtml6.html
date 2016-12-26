@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class='no-js' lang="sv">
+    <head>
+        <meta charset='utf-8'/>
+        <title>Bilar</title>
+        <link rel='stylesheet' type='text/css' href='webroot/css/style.css'/>
+        <script src='js/modernizr.js'></script></head>
+    <body>
+        <div id='wrapper'>
+            <div id='header'>
+                <img class='sitelogo left' src=' webroot/img/logo.jpg' alt=''/>
+                <div class='sitetitle left'>Bilar</div>
+                <div class='siteslogan left'>Administrera bilar</div>
+
+                <nav class='pagemenu'>
+                    <ul>
+                        <li><a href='start' title='Hem'>Hem</a></li>
+
+                        <li><a href='driver' title='Föraradministration'>Förare</a></li>
+
+                        <li><a href='cab' title='Biladministration'>Bilar</a></li>
+
+                        <li><a href='login' title='Login'>Login</a></li>
+                    </ul>
+                </nav>
+            </div><!-- header -->
+            <div id='main'>
+                <div id='content'>
+                    <div id='form-cab'>
+                        <form action='' method='post'>
+                            <fieldset>
+                                <legend>
+                                    Förare
+                                </legend>
+                                <div class='cab-form-row'>
+                                    <div class='cab-form-label'>
+                                        <select name='use_cab'>
+                                            <option value='-1'>Ny bil</option>
+                                            <option value='1' SELECTED>820</option>
+                                            <option value='2' >822</option>
+                                        </select>
+                                    </div>
+                                    <div class='cab-form-input'>
+                                        <input type='submit' value='Visa'>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div id='form-cabinfo'>
+                        <form action='' method='post'>
+                            <fieldset>
+                                <legend>
+                                    Bilinfo
+                                </legend>
+                                <div class='cab-form-content'>
+                                    <div class='cab-form-block left'>
+                                        <div class='cab-form-row'>
+                                            <div class='cab-form-label'>
+                                                <label>Tel  </label>
+                                            </div>
+                                            <div class='cab-form-label'>
+                                                <input type='text' name='Tel' value='070150820'>
+                                            </div>
+                                        </div>
+                                        <div class='cab-form-row'>
+                                            <div class='cab-form-label'>
+                                                <label>Regnr  </label>
+                                            </div>
+                                            <div class='cab-form-label'>
+                                                <input type='text' name='Regnr' value='KSM780'>
+                                            </div>
+                                        </div>
+                                        <div class='cab-form-row'>
+                                            <div class='cab-form-label'>
+                                                <label>Typ  </label>
+                                            </div>
+                                            <div class='cab-form-label'>
+                                                <input type='text' name='Typ' value='Volvo V70'>
+                                            </div>
+                                        </div>
+                                        <div class='cab-form-row'>
+                                            <div class='cab-form-label'>
+                                                <label>Försäkring  </label>
+                                            </div>
+                                            <div class='cab-form-label'>
+                                                <input type='text' name='Försäkring' value='Norska Brand'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class='cab-form-block left'>
+                                        <div class='cab-form-row'>
+                                            <div class='cab-form-label'>
+                                                <label>
+                                                    Antal pass 
+                                                </label>
+                                            </div>
+                                            <div class='cab-form-input'>
+                                                <select name='cab_pass'><option value=1>1</option>
+                                                    <option value=2 selected>2</option>
+                                                    <option value=3>3</option>
+                                                </select>
+                                            </div>'</div>
+                                        '</div>
+                                    <div class='cab-form-row'>
+                                        <button type='submit'  name='save' value='TRUE'>Spara</button></br>
+                                    </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div> <!-- content -->
+                <footer id='footer'>
+                    <div class='left sitefooter'>
+
+                        <a  href='http://validator.w3.org/unicorn/check?ucn_uri=referer&amp;ucn_task=conformance'>Unicorn</a>
+                        | 
+                        <a href='https://github.com/kerrik/ooophp'>tango på GitHub</a>
+
+                    </div>
+
+                    <div class='sitefooter left'>
+
+                        &copy;Peder Nordenstad 
+                        <a href='mailto:peder@nordenstad.se'>(peder@nordenstad.se)</a>
+
+                    </div>
+
+                    <div class='right sitefooter'>
+
+                        <form method=post>
+                            <input type="submit" value="Logout" name= "logout" id='logout' />
+                        </form>
+                    </div>
+                </footer>
+            </div><!-- main -->
+            <script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>
+        </div> <!-- wrapper -->
+    </body>
+</html>

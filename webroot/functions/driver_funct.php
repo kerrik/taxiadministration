@@ -59,7 +59,6 @@ function check_password() {
     if (!empty($_POST['password']) && $_POST['password'] === $_POST['password_check']) {
         $return = TRUE;
     } else {
-        dump($_POST);
         $new_driver->name = (empty($_POST['name']))? '':$_POST['name'];
         $new_driver->acronym = (empty($_POST['acronym']))?'' :$_POST['acronym'];
         $new_driver->return = FALSE;

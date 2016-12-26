@@ -38,10 +38,7 @@ function driverinfo() {
 //fyller $tango med lite data att skriva ut...
     global $user;
     $driver = save_driver();
-    dump($driver);
     $selected_driver = $driver->id;
-    dump($selected_driver);
-    echo '$selected_driver =' . $selected_driver;
 //#####################################################################
 
     $content = "<div id='form-driver'>";
@@ -52,7 +49,7 @@ function driverinfo() {
     if ($selected_driver < 0) {
         $content .= "<input type='hidden' name='use_driver' value= -2>\n";
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>Inloggning  </label></div>";
+        $content .= "<div class='driver-form-label'><label>Inloggning  </label></div>\n";
         $content .= "<div class='driver-form-input'><input type='text' name='acronym' value='{$driver->new_driver->acronym}'></div></br>\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
@@ -79,7 +76,7 @@ function driverinfo() {
         }
 
         $content .= "</select>";
-        $content .= "</div";
+        $content .= "</div>";
         $content .= "<div class='driver-form-label'><input type='submit' value='Visa'></br>\n";
         $content .= "</div>\n";
         $content .= "</fieldset>\n";
@@ -89,11 +86,10 @@ function driverinfo() {
         $content .= "<legend>Förarinfo</legend>\n";
     }
     foreach ($user->user_data($selected_driver) as $userdata) {
-//        dump($userdata);
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'><label>{$userdata->user_data_descr}  </label></div>";
-        $content .= "<div class='driver-form-label'>"
-                . "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
+        $content .= "<div class='driver-form-label'>";
+        $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
         $content .= "</div>\n";
     }
     if ($user->role() == 1) {

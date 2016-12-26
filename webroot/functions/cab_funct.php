@@ -13,11 +13,8 @@
 function save_cab() {
     global $db;
     global $cab;
-    echo 'session';    
     $return = new stdClass();
-    dump($_SESSION);
     if (empty($_SESSION['cab'])){$_SESSION['cab'] = $cab->first_cab();}
-    dump($_SESSION);
     $return->id = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
     if (!isset($_POST['save'])) {
         return $return->id;
@@ -33,10 +30,8 @@ function save_cab() {
             $_POST['use_cab'] = $id;
             $sql = "INSERT INTO cab_data (cab, cab_data_id, value) VALUES (?, ?, ?)";
             foreach ($cab->cab_data() as $row) {
-//                dump($_POST);
                 echo $row->cab_data_descr;
                 if (!empty($_POST[$row->cab_data_descr])) {
-//                dump($_POST);
                     unset($cab_array);
                     $cab_array[] = $id;
                     $cab_array[] = $row->cab_data_id;

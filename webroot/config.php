@@ -18,6 +18,7 @@ define('TANGO_INSTALL_PATH', __DIR__ . '/..');
 define('TANGO_SOURCE_PATH', TANGO_INSTALL_PATH . '/src/');
 define('TANGO_THEME_PATH', TANGO_INSTALL_PATH . '/theme/renderer.php');
 define('TANGO_FUNCTIONS_PATH', TANGO_INSTALL_PATH . '/webroot/functions/');
+define('TANGO_VIEWS_PATH', TANGO_INSTALL_PATH . '/webroot/views/');
 
 
 /**

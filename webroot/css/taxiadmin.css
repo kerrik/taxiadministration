@@ -11,15 +11,24 @@
     min-height: 3em;
 }
 
-.driver-form-row, .cab-form-row{{    
-    min-width: 100%
+.driver-form-row, cab-form-row, .cab-form-content{    
+    float:left;
+    min-width: 100%;
+    max-width: 100%;
 }
 
-.driver-form-label, .driver-form-label{
+.cab-form-block{  
+    min-width: 50%;
+    max-width: 50%;        
+}
+
+
+.driver-form-label, .cab-form-label{
     min-width: 6em; 
     
 }
 
-.driver-form-field, .driver-form-field{
+.driver-form-field, .cab-form-field{
+    float: left;
     min-width: 20em
 }

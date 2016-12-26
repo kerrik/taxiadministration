@@ -27,7 +27,7 @@ class CCab{
     public function get_cabs() {
         // Fyller $cabs med alla användare
         global $db;
-        $sql = 'SELECT * FROM Cab ORDER BY cab;';
+        $sql = 'SELECT * FROM cab ORDER BY cab;';
         $row = $db->query_DB($sql, array(), FALSE);
         if ($row) {
             $this->first_cab = $row;
@@ -36,15 +36,15 @@ class CCab{
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-//        print_a($this->cabs, 'get_cabs');
+//        print_a($cabs, 'get_cabs');
     }
     
     
 
     private function get_cab_data($id) {
-        // Hämtar alla data för en användare
+        // Hämtar alla data för en bil
         global $db;
-        $new_driver = (isset($_POST['new_driver'])) ? TRUE : FALSE;
+        $new_cab = (isset($_POST['new_cab'])) ? TRUE : FALSE;
         $sql = 'SELECT 
                   data_value.id,
                   data_descr,
@@ -66,35 +66,44 @@ class CCab{
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id == '-1' && $new_driver) {
+        if ($id < 0) {
             foreach ($cab_data as $row) {
-                $row->value = $_POST[$row->cab_data_descr];
+                $row->value = $_POST[$row->cab_data_descr]; 
             }
         }
-//        dump($cab_data);
         return $cab_data;
     }
 
-    // Kollar i $_SESSION om någon är inloggad och hämtar uppgifterna därifrån
-   
-
-//end logincheck()
-    //metod för inloggning
-    public function login() {
-        global $db;
-        $sql = "SELECT id FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
-        $this->cab = $db->query_DB($sql, array($_POST['acronym'], $_POST['password']), FALSE);
-        if (isset($this->cab->id)) {
-            $_SESSION['cab'] = $this->cab->id;
-        }
+    private function cab_create_pass_fields() {
+        $pass = 0;
+        $day = 0;
+        echo '<div class="fieldrow"><div class="field">';
+        for ($pass = 0; $pass < 2; $pass++) {
+            echo '<div id="pass' . $pass . '" class="pass-head">';
+            _e('Pass: ');
+            echo ' ' . $pass + 1 . '</div>';
+        } //end for pass
+        echo '</br>';
+        $tider = unserialize($this->current_car['pass_time']);
+        for ($day = 0; $day < 7; $day++) {
+            for ($pass = 0; $pass < 2; $pass++) {
+                echo '<div class="pass-head">';
+                echo '<input type="text" name="pass' . $pass . '_start[' . $day . ']" class="pass" value="' . $tider['pass' . $pass . '_start'][$day] . '">';
+                echo '<input type="text" name="pass' . $pass . '_stop[' . $day . ']" class="pass" value="' . $tider['pass' . $pass . '_stop'][$day] . '">';
+                echo '</div>';
+            } //end for pass
+            echo '</br>';
+        } //end for day
+        echo '</div></div>';
     }
-
-// end login()
-//    metod för utloggning
-    public function logged_in() {
-        return $this->cab->logged_in;
+  
+    public function pass_time($cab_id) {   
+        
+        $return = $this->cabs[$cab_id];
+//        $return = unserialize($this->cab->pass_time);
+//        print_a($return, 'passets info');
+        return $return; 
     }
-
     public function id() {
         return $this->cab->id;
     }
