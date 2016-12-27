@@ -11,13 +11,14 @@
     min-height: 3em;
 }
 
-.driver-form-row, cab-form-row, .cab-form-content{    
+.driver-form-row, .cab-form-row, .cab-form-content{    
     float:left;
     min-width: 100%;
     max-width: 100%;
 }
 
 .cab-form-block{  
+    float: left;
     min-width: 50%;
     max-width: 50%;        
 }

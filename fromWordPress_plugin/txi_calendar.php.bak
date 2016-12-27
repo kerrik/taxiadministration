@@ -1,0 +1,393 @@
+<?php
+
+$txi = new txi_calendar() ;
+
+function txi_taxi(){
+   global $txi ;
+   $return = ( isset( $txi->current_car['taxi'] )? $txi->current_car['taxi'] : '' ) ; 
+   echo $return ;
+}
+function txi_id(){
+   global $txi ;
+   $return = (isset( $txi->current_car['id'] )? $txi->current_car['id'] : '' ) ; 
+   echo $return ;
+}
+function txi_tel(){
+   global $txi ;
+   $return = (isset( $txi->current_car['tel'] )? $txi->current_car['tel'] : '' ) ; 
+   echo $return ;
+}
+function txi_regnr(){
+   global $txi ;
+   $return = (isset( $txi->current_car['regnr'] )? $txi->current_car['regnr'] : '' ) ; 
+   echo $return ;
+}
+function txi_pass(){
+   global $txi ;
+   $return = (isset( $txi->current_car['pass'] )? $txi->current_car['pass'] : '' ) ; 
+   echo $return ;
+}
+function txi_end_date(){
+   global $txi ;
+   $return = (isset( $txi->current_car['end_date'] )? $txi->current_car['end_date'] : '' ) ; 
+   echo $return ;
+}
+function txi_select_driver(){
+   global $txi ;
+   $foo = $txi->select_driver() ;
+}
+class txi_calendar {
+
+  private $drivers=array();
+  private $taxis=array();
+  private $txi_day;
+  private $txi_month;
+  private $txi_year;
+  private $days_in_month;
+  private $year_month;
+  private $month_initialized;
+  public $current_car=array();
+
+    ############################################################################
+    #
+    # Creates the object
+    #
+    ############################################################################
+
+    function __construct(){
+
+      ## parse days
+        
+      if (isset($_GET['txi_date'])) {
+        list($yr, $mo, $da) = explode('-', $_GET['txi_date']);
+        $this->txi_day = intval($da);
+        $this->txi_month = intval($mo);
+        $this->txi_year = intval($yr);
+      }else{
+        $this->txi_month = date('m');
+        $this->txi_day = date('d');
+        $this->txi_year = date('Y');
+      } //end parse days
+        $this->days_in_month = cal_days_in_month(CAL_GREGORIAN, $this->txi_month, $this->txi_year);
+        $this->year_month=$this->txi_year . '-' . sprintf('%02s',$this->txi_month) . '-%';
+
+      ## Hämtar bilar
+      $this->fetch_car();
+      
+      ## Hämtar användare och skapar en array med de värden jag vill använda
+        
+      $result=get_users(array( 'meta_key' => 'taxiadmin', 'meta_value' => '1' )) ;
+
+      $driver['driver_name']='-----' ;
+      $driver['id']='0' ;
+      $this->drivers['0']=$driver ;
+      foreach ( $result  as $foo ) {
+        $driver['driver_name']=$foo->first_name ;
+        $driver['id']=$foo->ID ;
+        // TFL-number are saved in the field nickname att this point
+        //########################################################################
+        $this->drivers[$foo->nickname]= $driver ;
+      }
+    }
+
+   
+
+    ############################################################################
+    ## Fetches the cars
+    ############################################################################
+    function fetch_car(){
+      global $wpdb ;
+      $car=$wpdb->prefix . 'txi_car' ;
+      $sql="SELECT  car AS taxi,
+                    id,
+                    tel,
+                    regnr,
+                    pass,
+                    pass_time,
+                    start_date,
+                    end_date
+            FROM $car
+            WHERE car <> '0'
+            ORDER BY car;";
+      $this->taxis=$wpdb->get_results($sql, ARRAY_A) ;
+    }
+    ############################################################################
+    ## returns an array with all cars
+    ############################################################################
+    function all_cars(){
+      return $this->taxis;
+    }
+
+    //##########################################################################
+
+    // Creates an optionlist of drivers
+
+    //##########################################################################
+
+    function select_driver(){
+        if (is_user_logged_in()){
+            echo '<select id="current_driver" name="driver" size="1">';
+             foreach ($this->drivers as $tfl=>$driver){
+                //echo $tfl;
+                if ( $tfl <> '0' ){
+                  echo '<option value="'.$tfl . '">' . $driver['driver_name'] . '</option>' ;
+                }
+            }
+            echo '</select>';
+        }
+    }
+
+    //##########################################################################
+
+    //Den h�r funktionen skapar en array med alla kalenderposter f�r m�naden
+
+    //##########################################################################
+
+    function tur_taxi_select_car(){
+      global $wpdb;
+      $calendar=$wpdb->prefix.'txi_pass';
+
+      $sql = "SELECT $calendar.taxi,
+                  $calendar.pass AS pass,
+                  $calendar.start_date AS start_date,
+                  $calendar.driver AS driver,
+                  $calendar.id ,
+                  $calendar.start_time,
+                  $calendar.end_time
+              FROM $calendar
+              WHERE $calendar.start_date LIKE '" . $this->year_month . "'
+              AND $calendar.type = 1 
+              ORDER BY taxi;";
+
+      $mysqldata = $wpdb->get_results( $sql, OBJECT );
+
+      //due to my inability to get it working with the objec i create an array
+      //that formats the data the way i like,
+      //########################################################################
+      $result=array();
+      foreach ($mysqldata as $node){
+        //Change the databasequery to a multidim array
+        if (!isset($result[$node->taxi][$node->pass])){
+          $result[$node->taxi][$node->pass]=array();
+
+        }//end if
+        $result[$node->taxi][$node->pass][$node->start_date]=array( 'id' => $node->id ,
+                                                                    'driver' => $node->driver ,
+                                                                    'start_time' => $node->start_time ,
+                                                                    'end_time' => $node->end_time );
+      }//end foreach
+      return $result;
+    }//end tur_taxi_select_car
+
+    //##########################################################################
+
+    //Fills the calendar with posts.
+
+    //##########################################################################
+    function tur_cal_print_drivers($bil, $pass,$kalendar){
+          for ( $counter1= 1 ; $counter1<= $this->days_in_month; $counter1++ ) {
+              $date = $this->txi_year . '-' . sprintf("%02s",$this->txi_month) . '-' . sprintf("%02s",$counter1) ;
+              $post=$kalendar[$pass][$date] ;
+              $duration = $post['start_time'] . '-' . $post['end_time'];
+              $txi_driver = ( isset($kalendar[$pass][$date]) && isset( $post['id'] ) ) ? $this->drivers[$post[driver]]['driver_name'] : '-----';
+               $calendar_post= "<div class='calendarpost' data-tooltip='tip1'  calendar-id='" ;
+               $calendar_post .= $post['id'] . "' calendar-time='". $duration ."' calendar-type='" ; 
+               $calendar_post .= $bil . "'>" . $txi_driver . "</div>";
+               echo nl2br($calendar_post);
+          }//end for
+      } //end tur_cal_print_days_in_month
+
+    //##########################################################################
+
+    //Fetches the cars
+
+    //##########################################################################
+
+    function list_cars(){
+      $url=home_url();
+      $result=$this->all_cars() ;
+      echo '<div id="listbox">' ;
+      foreach(  $result as $node ){
+          echo '<a href="' . $url . '/bilar/?taxin=' .
+                  $node['id'] . '">' .
+                  $node['taxi'] .
+                  '</a><br/>' ;// Skriver en länk i listboxen för val av taxi
+                  if ( $node['id'] == $_GET['taxin']){
+                      $this->current_car = $node ;
+                  }
+      }//end foreach
+      if ( current_user_can( 'administrator' ) ) {
+        $node='New';
+        echo '<a href="' . $url . '/bilar/?taxin=false">' . $node . '</a><br/>' ;
+      }
+      echo '</div>' ;
+      if ( current_user_can( 'administrator' ) ) {
+         $node='Edit';
+         echo '<a href="' . $url . '/bilar/?edit=true&taxin=' .
+                  $_GET['taxin'] . '">' . $node . '</a><br/>' ;
+      }
+    }//end list_cars
+
+
+    function txi_date(){
+          echo "$this->txi_year-$this->txi_month-$this->txi_day";
+    }//end txi_date
+
+      //########################################################################
+
+      //Prints the name of the day. Expects tu have the argument for short or full
+      // name and day of the month.
+
+      //########################################################################
+      function txi_day_name( $short,$day){
+
+        $day_length=(!$short)? 'l' : 'D';
+        $name_of_day= __( date( $day_length,mktime(0,0,0,$this->txi_month,$day, $this->txi_year ) ) ) ;
+        $name_of_the_day=(!strpos($name_of_day, 195)?  substr($name_of_day, 0, 2) :  substr($name_of_day, 0, 3)) ;
+        echo $name_of_the_day ;
+      }//end txi_day_name
+
+      //########################################################################
+
+      //Prints the name of the month
+
+      //########################################################################
+      function txi_month_name($short ){
+        $day_length=(!$short)? 'F' : 'M';
+        echo date( $day_length,mktime(0,0,0,$this->txi_month,$this->txi_day,  $this->txi_year ));
+       // _e( date( $day_length,mktime(0,0,0,$this->txi_month,$this->txi_day,  $this->txi_year ) ) ) ;
+      }//end txi_month_name
+
+      //########################################################################
+
+      //Prints the year
+
+      //########################################################################
+
+      function txi_year(){
+        _e( $this->txi_year );
+      }//end txi_year
+
+      //########################################################################
+
+      //Prints a link to the previous month
+
+      //########################################################################
+
+      function prev_month(){
+          echo('<a href="?txi_date='.date('Y-m-d', mktime(0,0,0,$this->txi_month,0,$this->txi_year)).'">&laquo;</a>');
+      }//end
+
+      //########################################################################
+
+      //Prints a link to the next month
+
+      //########################################################################
+
+
+      function next_month(){
+        echo('<a href="?txi_date='.date('Y-m-d', mktime(0,0,0,$this->txi_month+1,1,$this->txi_year)).'">&raquo;</a>');
+      }//end next_month
+
+      //########################################################################
+
+      //Prints day name and date in the calendar
+
+      //########################################################################
+
+      function tur_cal_print_days_in_month(){
+      for ($counter1=1;$counter1<=$this->days_in_month;$counter1++){
+          echo  "<div class='date' id='day" . $counter1 . "'><span class='left'>" ;
+          $this->txi_day_name(true, $counter1) ;
+        echo nl2br("</span><span class='right'>" . $counter1 . "</span></div>") ;
+    }//end for
+    } //end tur_cal_print_days_in_month
+
+    //##########################################################################
+
+    //Create fields for defining when pass starts and stps
+
+    //##########################################################################
+
+    function bil_create_pass_fields(){
+        $pass= 0 ;
+        $day= 0 ;
+        echo '<div class="fieldrow"><div class="field">' ;
+        for ( $pass= 0 ; $pass < 3 ; $pass++ ){
+            echo '<div id="pass' . $pass . '" class="pass-head">' ;
+            _e( 'Pass: ' ) ;
+            echo ' ' .$pass +1 . '</div>' ;
+        } //end for pass
+        echo '</br>' ;
+        $tider = unserialize( $this->current_car['pass_time'] );
+        print_r( $tider );
+        for ( $day= 0 ; $day < 7 ; $day++ ){
+            for ( $pass= 0 ; $pass < 3 ; $pass++ ){
+              echo '<div class="pass-head">';
+              echo '<input type="text" name="pass' . $pass . '_start['. $day . ']" class="pass">' ;
+              echo '<input type="text" name="pass' . $pass . '_stopp['. $day . ']" class="pass">' ;
+              echo '</div>' ;
+            } //end for pass
+            echo '</br>' ;
+        } //end for day
+        echo '</div></div>' ;
+    } // end create_pass_fields
+    //##########################################################################
+
+    //Creates the page for caradministration
+
+    //########################################################################
+
+    function setup_car_admin(){
+        $pass=serialize(array( 'pass1_start' => $_POST['pass0_start'],
+                   'pass1_stop' => $_POST['pass0_stop'],
+                   'pass2_start' =>  $_POST['pass1_start'],
+                   'pass2_stop' => $_POST['pass1_stop'],
+                   'pass3_start' =>  $_POST['pass2_start'],
+                   'pass3_stop' => $_POST['pass2_stop']));
+        $fields = array( 
+            'car'=>$_POST['txi_taxi'],
+            'regnr'=>$_POST['txi_regnr'],
+            'tel'=>$_POST['txi_tel'],
+            'pass'=>$_POST['txi_pass'],
+            'pass_time'=>$pass );
+        global $wpdb;
+        $bil = $wpdb->prefix . 'txi_car';
+        $wpdb->update(
+                $bil,
+                $fields,
+                array( 'id'=>$_GET['taxin'])
+                ) ;
+        $this->fetch_car();
+    }
+    //##########################################################################
+
+    //Updates changes in the calendar
+
+    //########################################################################
+
+    function update_calendar(){
+        global $wpdb ;
+        $calendar=$wpdb->prefix.'txi_pass';
+        if (isset($_POST['update'])){
+            $i=count($_POST['tfl']) ;
+            for ($ii=0 ; $ii < $i ; $ii++){
+                $wpdb->update(
+	                $calendar,
+                	array( 'driver'=>$_POST['tfl'][$ii] ),
+	                array( 'id'=>$_POST['post_id'][$ii])
+                );
+            }
+
+
+        }
+
+    } //end udate_calendar
+
+//##############################################################################
+//##############################################################################
+//##############################################################################
+}//End class
+
+
+?>

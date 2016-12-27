@@ -1,0 +1,194 @@
+#calendar{
+}
+.calendarpost, .date{
+  border-color: Silver;
+  border-style: solid;
+  border-width: 1px 1px;
+}
+
+#calendar{
+  float:left;
+  width: auto;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px 1px;
+  }
+
+
+#dates{
+  float: left;
+  width: 54px;
+  border-color: green;
+  border-style: solid;
+  border-width: 1px 1px;
+ /* background: #D4D4D4;*/
+}
+.rubrik{
+  float: left;
+  font-size: 130%;
+  height: 20px;
+  width: 100%
+}
+#calendar_heading{
+  float: left ;
+ /* background: #4FB9FF; */
+  width: 100%;
+}
+#calendar_heading_driver{
+  float: left;
+  width: 100%;
+}
+#calendar_heading_date{
+  float: left;
+  text-align: center;
+}
+
+.prev_month, .next_month{
+  margin-left: 20px ;
+  margin-right: 20px ;
+}
+.next_month{
+  float: right;
+  text-align: right;
+}
+.prev_month{
+  float: left;
+  text-align: left;
+}
+
+.calendarpost, .date{
+  font-size: 90%;
+  padding:2px 5px 2px 5px;
+  height: 20px;
+}
+
+.calendarpost{
+ /* background: #F2F2F2; */
+  text-align: center;
+}
+.date{
+  float: none;
+ /* background: #E8E8E8; */
+}
+.right{
+  float: right;
+  text-align: right;
+}
+.left{
+  float: left;
+  text-align: left;
+}
+
+
+
+.bil-calendar{
+  float:left;
+ /* background: grey; */
+  width:auto;
+
+
+  border-top: 1px;
+  border-color: blue;
+  border-style: solid;
+  border-width: 1px 1px;
+}
+.bil-rubrik, .bil-rubrik-tid{
+  float: none;
+  height: 20px;
+ /* background: white; */
+  text-align: center;
+}
+.bil-rubrik{
+  width:100px;
+/*  background: #CC9999 */
+}
+
+.bil-day{
+  width: 50%;
+  float:left;
+ /* background: #66CC99 */
+}
+ .bil-night{
+  width: 50%;
+  float:right;
+ /* background: #660099;  */
+}
+.trigger {
+	cursor : help;
+	border-bottom: 1px dashed white;
+}
+.trigger:hover {
+	color: rgb(255,0,0);
+}
+
+.tooltip {
+	padding: 1px;
+	background-color: white;
+	border: 1px solid grey;
+	border-radius : 5px;
+}
+
+.tooltip h2 {
+
+}
+.tooltip p {
+	color: black !important;
+}
+
+/* Bil */
+
+#listbox{
+  float: left ;
+  width: 40px ;
+  padding: 2px ;
+  border-style: solid ;
+  border-width: 1px ;
+}
+#listbox_driver{
+  float: left ;
+  width: 150px ;
+  padding: 2px ;
+  border-style: solid ;
+  border-width: 1px ;
+}
+
+
+#listbox a, #listbox_driver a{
+  color:black;
+  text-decoration: none;
+}
+.txi-form{
+  float: left ;
+  width: 400px;
+   border-top: 1px;
+  border-color: blue;
+  border-style: solid;
+  border-width: 1px 1px;
+}
+.txi-form .fieldrow{
+  float: left;
+  width: 100%;
+}
+.fieldrow .label{
+  float: left;
+}
+.fieldrow .field{
+  float: right;
+  width: 250px; 
+}
+.fieldrow .pass-head{
+  float: left;
+  width: 120px;
+}
+
+.pass{
+  width: 40px;
+}
+.driver-cal-day{
+    float: left;
+    height: 20px;
+    width: 50px;
+    border-style: solid;
+    border-width: 1px;
+}
+

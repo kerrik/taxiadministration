@@ -8,7 +8,7 @@
 
 $content .= "<div class='cab-form-row'>\n";
 $content .= "<div class='cab-form-label'>\n<label>\nAntal pass \n</label>\n</div>\n";
-$content .= "<div class='cab-form-input'>\n";
+$content .= "<div class='cab-form-field'>\n";
 $content .= "<select name='cab_pass'>";
 $content .= "<option value=1>1</option>\n";
 $content .= "<option value=2 selected>2</option>\n";
