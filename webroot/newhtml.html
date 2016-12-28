@@ -1,16 +1,238 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
+<!--[if IE 7]>
+<html class="ie ie7" lang="sv-SE">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8" lang="sv-SE">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="sv-SE">
+    <!--<![endif]-->
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Hantera bilar | Teståkeriet</title>
+        <link rel="profile" href="http://gmpg.org/xfn/11" />
+        <link rel="pingback" href="http://utveckling.taxiadministration.se/xmlrpc.php" />
+        <!--[if lt IE 9]>
+        <script src="http://utveckling.taxiadministration.se/wp-content/themes/twentytwelve/js/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <link rel="alternate" type="application/rss+xml" title="Teståkeriet &raquo; flöde" href="http://utveckling.taxiadministration.se/feed/" />
+        <link rel="alternate" type="application/rss+xml" title="Teståkeriet &raquo; kommentarsflöde" href="http://utveckling.taxiadministration.se/comments/feed/" />
+        <link rel="alternate" type="application/rss+xml" title="Teståkeriet &raquo; Hantera bilar kommentarsflöde" href="http://utveckling.taxiadministration.se/hantera-bilar/feed/" />
+        <link rel='stylesheet' id='admin-bar-css'  href='http://utveckling.taxiadministration.se/wp-includes/css/admin-bar.min.css?ver=3.5.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='tur-calendar-style-css'  href='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/css/style.css?ver=3.5.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='txi-timepicker-style-css'  href='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/js/jquery/css/jquery.ui.timepicker.css?ver=3.5.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='jquery-ui-1-10-0.custom-min-css-css'  href='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/js/jquery/css/jquery-ui-1.10.0.custom.min.css?ver=3.5.1' type='text/css' media='all' />
+        <link rel='stylesheet' id='twentytwelve-fonts-css'  href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&#038;subset=latin,latin-ext' type='text/css' media='all' />
+        <link rel='stylesheet' id='twentytwelve-style-css'  href='http://utveckling.taxiadministration.se/wp-content/themes/twentytwelve/style.css?ver=3.5.1' type='text/css' media='all' />
+        <!--[if lt IE 9]>
+        <link rel='stylesheet' id='twentytwelve-ie-css'  href='http://utveckling.taxiadministration.se/wp-content/themes/twentytwelve/css/ie.css?ver=20121010' type='text/css' media='all' />
+        <![endif]-->
+        <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js?ver=latest'></script>
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/js/jquery/jquery.ui.timepicker.js?ver=3.5.1'></script>
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/js/jquery/include/ui-1.10.0/jquery.ui.core.min.js?ver=3.5.1'></script>
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-content/plugins/turakarna/js/taxi_js.js?ver=3.5.1'></script>
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-includes/js/comment-reply.min.js?ver=3.5.1'></script>
+        <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://utveckling.taxiadministration.se/xmlrpc.php?rsd" />
+        <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://utveckling.taxiadministration.se/wp-includes/wlwmanifest.xml" /> 
+        <link rel='prev' title='Förarkalender' href='http://utveckling.taxiadministration.se/forarkalender/' />
+        <link rel='next' title='Hantera förare' href='http://utveckling.taxiadministration.se/hantera-forare/' />
+        <meta name="generator" content="WordPress 3.5.1" />
+        <link rel='canonical' href='http://utveckling.taxiadministration.se/hantera-bilar/' />
+        <style type="text/css" media="print">#wpadminbar { display:none; }</style>
+        <style type="text/css" media="screen">
+            html { margin-top: 28px !important; }
+            * html body { margin-top: 28px !important; }
+        </style>
     </head>
-    <body>
-        <div>TODO write content</div>
+
+    <body class="page page-id-11 page-template-default logged-in admin-bar no-customize-support custom-font-enabled single-author">
+        <div id="page" class="hfeed site">
+            <header id="masthead" class="site-header" role="banner">
+                <hgroup>
+                    <h1 class="site-title"><a href="http://utveckling.taxiadministration.se/" title="Teståkeriet" rel="home">Teståkeriet</a></h1>
+                    <h2 class="site-description">Utveckling</h2>
+                </hgroup>
+
+                <nav id="site-navigation" class="main-navigation" role="navigation">
+                    <h3 class="menu-toggle">Meny</h3>
+                    <a class="assistive-text" href="#content" title="Hoppa till innehåll">Hoppa till innehåll</a>
+                    <div class="nav-menu"><ul><li ><a href="http://utveckling.taxiadministration.se/" title="Hem">Hem</a></li><li class="page_item page-item-4"><a href="http://utveckling.taxiadministration.se/biladministration/">Biladministration</a></li><li class="page_item page-item-2"><a href="http://utveckling.taxiadministration.se/exempelsida/">Exempelsida</a></li><li class="page_item page-item-9"><a href="http://utveckling.taxiadministration.se/forarkalender/">Förarkalender</a></li><li class="page_item page-item-11 current_page_item"><a href="http://utveckling.taxiadministration.se/hantera-bilar/">Hantera bilar</a></li><li class="page_item page-item-13"><a href="http://utveckling.taxiadministration.se/hantera-forare/">Hantera förare</a></li></ul></div>
+                </nav><!-- #site-navigation -->
+
+            </header><!-- #masthead -->
+
+            <div id="main" class="wrapper">
+                <div id="primary" class="site-content">
+                    <div id="content" role="main">
+
+
+                        <article id="post-11" class="post-11 page type-page status-publish hentry">
+                            <header class="entry-header">
+                                <h1 class="entry-title">Hantera bilar</h1>
+                            </header>
+
+                            <div class="entry-content">
+
+                                <div id='listbox'>
+                                    <div id="listbox"><a href="http://utveckling.taxiadministration.se/hantera-bilar//?taxin=1">820</a><br/><a href="http://utveckling.taxiadministration.se/hantera-bilar//?taxin=2">xcvbgxfcz</a><br/></div><a href="http://utveckling.taxiadministration.se/hantera-bilar//?new=true">New</a><br/><a href="http://utveckling.taxiadministration.se/hantera-bilar//?edit=true&taxin=2">Edit</a><br/>          </div>
+
+                                <div class='txi-form'>
+                                    <form name='select_car' action="" method='post'>
+                                        <div class='fieldrow'>
+                                            <span class='label'>Taxi:</span><span class='field'> <input type="text" name="txi_taxi" value="xcvbgxfcz"
+                                                                                                        readonly ></span><br>
+                                        </div>
+                                        <div class='fieldrow'>
+                                            <span class='label'>Regnr:</span><span class='field'> <input type="text" name="txi_regnr" value='xfbzD'></span><br>
+                                        </div>
+                                        <div class='fieldrow'>
+                                            <span class='label'>Tel:</span><span class='field'> <input type="text" name="txi_tel" value="dfbgvdfz"></span><br>
+                                        </div>
+                                        <div class='fieldrow'>
+                                            <span class='label'>Antal pass:</span><span class='field'> <select name="txi_pass">
+                                                    <option value="1">1</option>
+                                                    <option value="2" selected>2</option>
+                                                    <option value="3">3</option>
+                                                </select></span><br>
+                                        </div>
+                                        <div class='fieldrow'>
+                                            <div class="fieldrow">
+                                                <div class="field">
+                                                    <div id="pass0" class="pass-head">Pass: 1</div>
+                                                    <div id="pass1" class="pass-head">Pass: 2</div>
+                                                    <div class="pass-head">
+                                                        <input type="text" name="pass0_start[0]" class="pass" value="07:20">
+                                                        <input type="text" name="pass0_stop[0]" class="pass" value="">
+                                                    </div><div class="pass-head">
+                                                        <input type="text" name="pass1_start[0]" class="pass" value="">
+                                                        <input type="text" name="pass1_stop[0]" class="pass" value="">
+                                                    </div></br>
+                                                    <div class="pass-head">
+                                                        <input type="text" name="pass0_start[1]" class="pass" value="">
+                                                        <input type="text" name="pass0_stop[1]" class="pass" value="">
+                                                    </div>
+                                                    <div class="pass-head">
+                                                        <input type="text" name="pass1_start[1]" class="pass" value="">
+                                                        <input type="text" name="pass1_stop[1]" class="pass" value="">
+                                                    </div></br>
+                                                    <div class="pass-head"><input type="text" name="pass0_start[2]" class="pass" value=""><input type="text" name="pass0_stop[2]" class="pass" value=""></div><div class="pass-head"><input type="text" name="pass1_start[2]" class="pass" value=""><input type="text" name="pass1_stop[2]" class="pass" value=""></div></br><div class="pass-head"><input type="text" name="pass0_start[3]" class="pass" value=""><input type="text" name="pass0_stop[3]" class="pass" value=""></div><div class="pass-head"><input type="text" name="pass1_start[3]" class="pass" value=""><input type="text" name="pass1_stop[3]" class="pass" value=""></div></br><div class="pass-head"><input type="text" name="pass0_start[4]" class="pass" value=""><input type="text" name="pass0_stop[4]" class="pass" value=""></div><div class="pass-head"><input type="text" name="pass1_start[4]" class="pass" value=""><input type="text" name="pass1_stop[4]" class="pass" value=""></div></br><div class="pass-head"><input type="text" name="pass0_start[5]" class="pass" value=""><input type="text" name="pass0_stop[5]" class="pass" value=""></div><div class="pass-head"><input type="text" name="pass1_start[5]" class="pass" value=""><input type="text" name="pass1_stop[5]" class="pass" value=""></div></br><div class="pass-head"><input type="text" name="pass0_start[6]" class="pass" value=""><input type="text" name="pass0_stop[6]" class="pass" value=""></div><div class="pass-head"><input type="text" name="pass1_start[6]" class="pass" value=""><input type="text" name="pass1_stop[6]" class="pass" value=""></div></br></div></div>            </div>
+
+                                        <input  type="submit" name='txi_update' value='Uppdatera'>
+                                    </form>
+                                </div><!-- end txi-form -->
+
+
+                            </div><!-- .entry-content -->
+                            <footer class="entry-meta">
+                                <span class="edit-link"><a class="post-edit-link" href="http://utveckling.taxiadministration.se/wp-admin/post.php?post=11&amp;action=edit" title="Redigera sida">Redigera</a></span>		</footer><!-- .entry-meta -->
+                        </article><!-- #post -->
+
+                        <div id="comments" class="comments-area">
+
+
+
+                            <div id="respond">
+                                <h3 id="reply-title">Kommentera <small><a rel="nofollow" id="cancel-comment-reply-link" href="/hantera-bilar/?edit=true&amp;taxin=2#respond" style="display:none;">Avbryt svar</a></small></h3>
+                                <form action="http://utveckling.taxiadministration.se/wp-comments-post.php" method="post" id="commentform">
+                                    <p class="logged-in-as">Inloggad som <a href="http://utveckling.taxiadministration.se/wp-admin/profile.php">HansF</a>. <a href="http://utveckling.taxiadministration.se/wp-login.php?action=logout&amp;redirect_to=http%3A%2F%2Futveckling.taxiadministration.se%2Fhantera-bilar%2F&amp;_wpnonce=a3b37be1ed" title="Logga ut från det här kontot">Logga ut?</a></p>																			<p class="comment-form-comment"><label for="comment">Kommentar</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>						<p class="form-allowed-tags">Följande <abbr title="HyperText Markup Language">HTML</abbr>-taggar och attribut är tillåtna:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>						<p class="form-submit">
+                                        <input name="submit" type="submit" id="submit" value="Skicka kommentar" />
+                                        <input type='hidden' name='comment_post_ID' value='11' id='comment_post_ID' />
+                                        <input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+                                    </p>
+                                    <input type="hidden" id="_wp_unfiltered_html_comment_disabled" name="_wp_unfiltered_html_comment_disabled" value="3fb2d966cd" /><script>(function () {
+                                                        if (window === window.parent) {
+                                                            document.getElementById('_wp_unfiltered_html_comment_disabled').name = '_wp_unfiltered_html_comment';
+                                                        }
+                                                    })();</script>
+                                    <p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="238720d82f" /></p>					</form>
+                            </div><!-- #respond -->
+
+                        </div><!-- #comments .comments-area -->			
+                    </div><!-- #content -->
+                </div><!-- #primary -->
+
+
+                <div id="secondary" class="widget-area" role="complementary">
+                    <aside id="meta-2" class="widget widget_meta"><h3 class="widget-title">https://wordpress-td19536-159065.phpmyadmin.mysql.binero.se/</h3>			<ul>
+                            <li><a href="http://utveckling.taxiadministration.se/wp-admin/">Administration</a></li>			<li><a href="http://utveckling.taxiadministration.se/wp-login.php?action=logout&#038;_wpnonce=a3b37be1ed">Logga ut</a></li>
+                            <li><a href="http://utveckling.taxiadministration.se/feed/" title="Prenumerera på den här webbplatsen via RSS 2.0">Inlägg via <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+                            <li><a href="http://utveckling.taxiadministration.se/comments/feed/" title="De senaste kommentarerna till alla inlägg via RSS">Kommentarer via <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+                            <li><a href="http://wordpress.org/" title="Drivs med WordPress, en toppmodern, semantisk publiceringsplattform.">WordPress.org</a></li>
+                        </ul>
+                    </aside>		</div><!-- #secondary -->
+            </div><!-- #main .wrapper -->
+            <footer id="colophon" role="contentinfo">
+                <div class="site-info">
+                    <a href="http://wordpress.org/" title="Semantisk plattform för personlig publicering">Drivs med WordPress</a>
+                </div><!-- .site-info -->
+            </footer><!-- #colophon -->
+        </div><!-- #page -->
+
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-includes/js/admin-bar.min.js?ver=3.5.1'></script>
+        <script type='text/javascript' src='http://utveckling.taxiadministration.se/wp-content/themes/twentytwelve/js/navigation.js?ver=1.0'></script>
+        <script type="text/javascript">
+                                                    (function () {
+                                                        var request, b = document.body, c = 'className', cs = 'customize-support', rcs = new RegExp('(^|\\s+)(no-)?' + cs + '(\\s+|$)');
+
+                                                        request = true;
+
+                                                        b[c] = b[c].replace(rcs, ' ');
+                                                        b[c] += (window.postMessage && request ? ' ' : ' no-') + cs;
+                                                    }());
+        </script>
+        <div id="wpadminbar" class="nojq nojs" role="navigation">
+            <a class="screen-reader-shortcut" href="#wp-toolbar" tabindex="1">Hoppa till verktygsfältet</a>
+            <div class="quicklinks" id="wp-toolbar" role="navigation" aria-label="Övre verktygsnavigering" tabindex="0">
+                <ul id="wp-admin-bar-root-default" class="ab-top-menu">
+                    <li id="wp-admin-bar-wp-logo" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/about.php" title="Om WordPress"><span class="ab-icon"></span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-wp-logo-default" class="ab-submenu">
+                                <li id="wp-admin-bar-about"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/about.php">Om WordPress</a>		</li></ul><ul id="wp-admin-bar-wp-logo-external" class="ab-sub-secondary ab-submenu">
+                                <li id="wp-admin-bar-wporg"><a class="ab-item"  href="http://wordpress.org/">WordPress.org</a>		</li>
+                                <li id="wp-admin-bar-documentation"><a class="ab-item"  href="http://codex.wordpress.org/">Dokumentation</a>		</li>
+                                <li id="wp-admin-bar-support-forums"><a class="ab-item"  href="http://wordpress.org/support/">Supportforum</a>		</li>
+                                <li id="wp-admin-bar-feedback"><a class="ab-item"  href="http://wordpress.org/support/forum/requests-and-feedback">Feedback</a>		</li></ul></div>		</li>
+                    <li id="wp-admin-bar-my-sites" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/my-sites.php">Mina webbplatser</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-my-sites-super-admin" class="ab-submenu">
+                                <li id="wp-admin-bar-network-admin" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://taxiadministration.se/wp-admin/network/">Nätverksadmin</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-network-admin-default" class="ab-submenu">
+                                            <li id="wp-admin-bar-network-admin-d"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/network/">Adminpanel</a>		</li>
+                                            <li id="wp-admin-bar-network-admin-s"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/network/sites.php">Webbplatser</a>		</li>
+                                            <li id="wp-admin-bar-network-admin-u"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/network/users.php">Användare</a>		</li>
+                                            <li id="wp-admin-bar-network-admin-v"><a class="ab-item"  href="http://taxiadministration.se/">Besök nätverk</a>		</li></ul></div>		</li></ul><ul id="wp-admin-bar-my-sites-list" class="ab-sub-secondary ab-submenu">
+                                <li id="wp-admin-bar-blog-1" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://taxiadministration.se/wp-admin/"><div class="blavatar"></div>Ett verktyg för att administrera din taxirörelse</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-blog-1-default" class="ab-submenu">
+                                            <li id="wp-admin-bar-blog-1-d"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/">Adminpanel</a>		</li>
+                                            <li id="wp-admin-bar-blog-1-n"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/post-new.php">Nytt inlägg</a>		</li>
+                                            <li id="wp-admin-bar-blog-1-c"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/edit-comments.php">Hantera kommentarer</a>		</li>
+                                            <li id="wp-admin-bar-blog-1-v"><a class="ab-item"  href="http://taxiadministration.se/">Besök sida</a>		</li></ul></div>		</li>
+                                <li id="wp-admin-bar-blog-2" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/"><div class="blavatar"></div>Teståkeriet</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-blog-2-default" class="ab-submenu">
+                                            <li id="wp-admin-bar-blog-2-d"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/">Adminpanel</a>		</li>
+                                            <li id="wp-admin-bar-blog-2-n"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post-new.php">Nytt inlägg</a>		</li>
+                                            <li id="wp-admin-bar-blog-2-c"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/edit-comments.php">Hantera kommentarer</a>		</li>
+                                            <li id="wp-admin-bar-blog-2-v"><a class="ab-item"  href="http://utveckling.taxiadministration.se/">Besök sida</a>		</li></ul></div>		</li></ul></div>		</li>
+                    <li id="wp-admin-bar-site-name" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/">Teståkeriet</a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-site-name-default" class="ab-submenu">
+                                <li id="wp-admin-bar-dashboard"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/">Adminpanel</a>		</li></ul><ul id="wp-admin-bar-appearance" class="ab-submenu">
+                                <li id="wp-admin-bar-themes"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/themes.php">Teman</a>		</li>
+                                <li id="wp-admin-bar-customize" class="hide-if-no-customize"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/customize.php?url=http%3A%2F%2Futveckling.taxiadministration.se%2Fhantera-bilar%2F%3Fedit%3Dtrue%26taxin%3D2">Anpassa</a>		</li>
+                                <li id="wp-admin-bar-widgets"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/widgets.php">Widgets</a>		</li>
+                                <li id="wp-admin-bar-menus"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/nav-menus.php">Menyer</a>		</li>
+                                <li id="wp-admin-bar-background"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/themes.php?page=custom-background">Bakgrund</a>		</li>
+                                <li id="wp-admin-bar-header"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/themes.php?page=custom-header">Sidhuvud</a>		</li></ul></div>		</li>
+                    <li id="wp-admin-bar-updates"><a class="ab-item"  href="http://taxiadministration.se/wp-admin/network/update-core.php" title="2 uppdateringar för teman"><span class="ab-icon"></span><span class="ab-label">2</span><span class="screen-reader-text">2 uppdateringar för teman</span></a>		</li>
+                    <li id="wp-admin-bar-comments"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/edit-comments.php" title="0 kommentarer väntar på granskning"><span class="ab-icon"></span><span id="ab-awaiting-mod" class="ab-label awaiting-mod pending-count count-0">0</span></a>		</li>
+                    <li id="wp-admin-bar-new-content" class="menupop"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/post-new.php" title="Skapa/lägg till"><span class="ab-icon"></span><span class="ab-label">Nytt</span></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-new-content-default" class="ab-submenu">
+                                <li id="wp-admin-bar-new-post"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post-new.php">Inlägg</a>		</li>
+                                <li id="wp-admin-bar-new-media"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/media-new.php">Media</a>		</li>
+                                <li id="wp-admin-bar-new-page"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post-new.php?post_type=page">Sida</a>		</li>
+                                <li id="wp-admin-bar-new-taxi"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post-new.php?post_type=taxi">Taxi</a>		</li>
+                                <li id="wp-admin-bar-new-taxi_kalender"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post-new.php?post_type=taxi_kalender">Kalenderpost</a>		</li>
+                                <li id="wp-admin-bar-new-user"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/user-new.php">Användare</a>		</li></ul></div>		</li>
+                    <li id="wp-admin-bar-edit"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/post.php?post=11&#038;action=edit">Redigera sida</a>		</li></ul><ul id="wp-admin-bar-top-secondary" class="ab-top-secondary ab-top-menu">
+                    <li id="wp-admin-bar-search" class="admin-bar-search"><div class="ab-item ab-empty-item" tabindex="-1"><form action="http://utveckling.taxiadministration.se/" method="get" id="adminbarsearch"><input class="adminbar-input" name="s" id="adminbar-search" type="text" value="" maxlength="150" /><input type="submit" class="adminbar-button" value="Sök"/></form></div>		</li>
+                    <li id="wp-admin-bar-my-account" class="menupop with-avatar"><a class="ab-item"  aria-haspopup="true" href="http://utveckling.taxiadministration.se/wp-admin/profile.php" title="Mitt konto">Hej, HansF<img alt='' src='http://1.gravatar.com/avatar/1d2f4397d0d590a1a826008b2dd125e5?s=16&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D16&amp;r=G' class='avatar avatar-16 photo' height='16' width='16' /></a><div class="ab-sub-wrapper"><ul id="wp-admin-bar-user-actions" class="ab-submenu">
+                                <li id="wp-admin-bar-user-info"><a class="ab-item" tabindex="-1" href="http://utveckling.taxiadministration.se/wp-admin/profile.php"><img alt='' src='http://1.gravatar.com/avatar/1d2f4397d0d590a1a826008b2dd125e5?s=64&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D64&amp;r=G' class='avatar avatar-64 photo' height='64' width='64' /><span class='display-name'>HansF</span><span class='username'>admin</span></a>		</li>
+                                <li id="wp-admin-bar-edit-profile"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-admin/profile.php">Ändra min profil</a>		</li>
+                                <li id="wp-admin-bar-logout"><a class="ab-item"  href="http://utveckling.taxiadministration.se/wp-login.php?action=logout&#038;_wpnonce=a3b37be1ed">Logga ut</a>		</li></ul></div>		</li></ul>			</div>
+            <a class="screen-reader-shortcut" href="http://utveckling.taxiadministration.se/wp-login.php?action=logout&#038;_wpnonce=a3b37be1ed">Logga ut</a>
+        </div>
+
     </body>
 </html>

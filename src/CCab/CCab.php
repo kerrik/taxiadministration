@@ -97,9 +97,9 @@ class CCab{
         echo '</div></div>';
     }
   
-    public function pass_time($cab_id) {   
+    public function pass_time() {   
         
-        $return = $this->cabs[$cab_id];
+        $return = unserialize($this->first_cab->pass_time);
 //        $return = unserialize($this->cab->pass_time);
 //        print_a($return, 'passets info');
         return $return; 

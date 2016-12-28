@@ -42,6 +42,7 @@ function cabinfo() {
 //fyller $tango med lite data att skriva ut...
     global $cab;
     global $user;
+    
     $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
 ////#####################################################################
 
