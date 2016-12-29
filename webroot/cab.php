@@ -23,10 +23,15 @@
 // Ikluderar config.php. som sätter igång allt.
 
 include( __DIR__ . '/config.php');
-
 $tango->set_property('title', "Bilar");
 $tango->set_property('title_append', "Administrera bilar");
-
+$tango->set_property('style',array('less', 'webroot/css/test.less'));
+$tango->set_property('style', array('css', 'webroot/js/jquery/css/jquery.ui.timepicker.css'));
+$tango->set_property('style', array('css', 'webroot/js/jquery/css/jquery-ui-1.10.0.custom.min.css'));
+$tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"); 
+$tango->js_include( 'webroot/js/jquery/include/ui-1.10.0/jquery.ui.core.min.js'); 
+$tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
+$tango->js_include( 'webroot/js/taxi_js.js');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
 $cab = new CCab();

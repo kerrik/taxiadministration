@@ -19,6 +19,7 @@ define('TANGO_SOURCE_PATH', TANGO_INSTALL_PATH . '/src/');
 define('TANGO_THEME_PATH', TANGO_INSTALL_PATH . '/theme/renderer.php');
 define('TANGO_FUNCTIONS_PATH', TANGO_INSTALL_PATH . '/webroot/functions/');
 define('TANGO_VIEWS_PATH', TANGO_INSTALL_PATH . '/webroot/views/');
+define('TANGO_SCRIPT_PATH', __DIR__ . '/js/'); 
 
 
 /**
@@ -109,11 +110,6 @@ if ($include != '/cab'){
 // $tango->set_property('style', array("css/style.css"));
 
 $tango->set_property('modernizr', 'js/modernizr.js');
-// 
-// jquery har två möjligheter just nu, antingen använda goggles eller inte alls. 
-// Standard är den avslagen
-$tango->set_property('jquery', TRUE);
-// $tango->set_property('javascript_include', array());
 // 
 // För att få fart på google analytics skickar man sitt kontoid till CTango
 // $tango->set_property('google_analytics', '');

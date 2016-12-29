@@ -5,24 +5,20 @@
  * Skapar tangoobjektet
  *
  */
+class CTango {
 
-class CTango{
     // Först lite settings för hela <head>
     private $lang = "sv";
     private $favicon = "";
-    private $style = array("webroot/css/style.css");
+    private $style = array(array("css","webroot/css/style.css"));
     private $embed_style = "";
-
     private $modernizr = 'webroot/js/modernizr.js';
     private $jquery = '';
     private $javascript_include = array();
     private $google_analytics = false;
-
-
     private $title = "";
     private $title_append = "";
     private $logo = "webroot/img/logo.jpg";
-
     // Här kommer variablerna för sidinnehåll
 
     private $header = "";
@@ -30,85 +26,128 @@ class CTango{
     private $footer = "";
     private $side = array();
 
-
-    public function __construct(){
+    public function __construct() {
         $this->set_property('favicon', 'favicon.ico');
-        $this->set_property('jquery', false);
     }
 
-    public function lang(){
+    public function js_include($script_path, $header = TRUE, $id = null) {
+
+        switch ($header) {
+            case TRUE:
+                if (isset($id)) {
+                    $this->javascript_include['header'][$id] = $script_path;
+                } else {
+                    $this->javascript_include['header'][] = $script_path;
+                }
+                break;
+            case FALSE:
+                if (isset($id)) {
+                    $this->javascript_include['footer'][$id] = $script_path;
+                } else {
+                    $this->javascript_include['footer'][] = $script_path;
+                }
+                break;
+            default :
+                return false;
+        }
+
+
+    }
+
+    public function lang() {
         return $this->lang;
     }
-     public function favicon(){
+
+    public function favicon() {
         return $this->favicon;
     }
-    public function style(){
+
+    public function style() {
         return $this->style;
     }
-    public function title(){
+
+    public function title() {
         return $this->title;
     }
-    public function title_append(){
+
+    public function title_append() {
         return $this->title_append;
     }
-    public function logo(){
+
+    public function logo() {
         return $this->logo;
     }
-    public function header(){
-        if(!$this->header){
+
+    public function header() {
+        if (!$this->header) {
             $this->header = "<img class='sitelogo left' src=' $this->logo' alt=''/>\n";
             $this->header .= "<div class='sitetitle left'>$this->title</div>\n";
             $this->header .= "<div class='siteslogan left'>$this->title_append</div>\n";
         }
         return $this->header;
     }
-    public function main(){
+
+    public function main() {
         return $this->main;
     }
-    public function footer(){
+
+    public function footer() {
         return $this->footer;
     }
-    public function head(){
-    $head  = <<<EOD
+
+    public function head() {
+        $head = <<<EOD
 <html class='no-js' lang="$this->lang">
 <head>
     <meta charset='utf-8'/>
     <title>$this->title</title>
 $this->favicon
 EOD
-    ;
-    foreach($this->style as $val){
-        $head .= "<link rel='stylesheet' type='text/css' href='$val'/>\n";
-    }
-    if($this->embed_style){
-        $head .= <<<EOD
+        ;
+//        print_a($this->style, '$this->style');
+        foreach ($this->style as $key=> $val) {
+            $head .= "<link rel='stylesheet' type='text/{$val[0]}' href='{$val[1]}'/>\n";
+        }
+        if ($this->embed_style) {
+            $head .= <<<EOD
 <style media="screen" type="text/css">
     <!--
     $this->embed_style
     -->
 </style>
 EOD
-    ;}
-    if($this->modernizr){
-        $head .= <<<EOD
+            ;
+        }
+       $head .= $this->scripts_header();
+        if ($this->modernizr) {
+            $head .= <<<EOD
 <script src='$this->modernizr'></script>
 EOD
-        ;
-    }
-    $head .= "</head>\n";
-     return $head;
+            ;
+        }
+        $head .= "</head>\n";
+        return $head;
     }
 
-
-    public function scripts_footer(){
-        $scripts_footer = $this->jquery;
-        if(isset($this->javascript_include)){
-            foreach($this->javascript_include as $val){
-                $scripts_footer .= "<script src='$val'></script>";
+    public function scripts_header() {
+        $scripts_header='';
+        if (isset($this->javascript_include)) {
+            foreach ($this->javascript_include['header'] as $val) {
+                $scripts_header.= "<script src='$val'></script>\n";
             }
         }
-        if($this->google_analytics){
-            $scripts_footer .=<<<EOD
+        return $scripts_header;
+    }
+
+    public function scripts_footer() {
+        $scripts_footer= '';
+        if (isset($this->javascript_include['footer'])) {
+            foreach ($this->javascript_include['footer'] as $val) {
+                $scripts_footer .= "<script src='$val'></script>\n";
+            }
+        }
+        if ($this->google_analytics) {
+            $scripts_footer .= <<<EOD
                     <script>
                     var _gaq=[['_setAccount','$this->google_analytics'],['_trackPageview']];
                     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
@@ -122,67 +161,60 @@ EOD
         return $scripts_footer;
     }
 
-    public function main_content($content){
-        $this->main .= $content;
-    }
-    
-    public function content($content){
+    public function main_content($content) {
         $this->main .= $content;
     }
 
-     public function set_property($property, $value){
-        switch ($property){
+    public function content($content) {
+        $this->main .= $content;
+    }
+
+    public function set_property($property, $value) {
+        switch ($property) {
             case 'lang':
-                $this->lang =$value;
+                $this->lang = $value;
                 break;
             case 'favicon':
-                $this->favicon = (file_exists($value)? "<link rel='shortcut icon' href='favicon.ico'/>\n" : "");
-            break;
+                $this->favicon = (file_exists($value) ? "<link rel='shortcut icon' href='favicon.ico'/>\n" : "");
+                break;
             case 'style':
-                $this->style =$value;
+                $this->style[] = $value;
                 break;
             case 'embed_style':
-                $this->embed_style =$value;
+                $this->embed_style[] = $value;
                 break;
             case 'title':
-                $this->title =$value;
+                $this->title = $value;
                 break;
             case 'title_append':
-                $this->title_append =$value;
+                $this->title_append = $value;
                 break;
             case 'logo':
-                $this->logo =$value;
+                $this->logo = $value;
                 break;
             case 'header':
-                $this->header =$value;
+                $this->header = $value;
                 break;
             case 'main':
-                $this->main =$value;
+                $this->main = $value;
                 break;
             case 'footer':
-                $this->footer =$value;
+                $this->footer = $value;
                 break;
             case 'side':
-                $this->side =$value;
+                $this->side = $value;
                 break;
             case 'modernizr':
-                $this->modernizr =$value;
+                $this->modernizr = $value;
                 break;
-            case 'jquery':
-                $this->jquery =($value?"<script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js'></script>\n":"");
-                break;
-            case 'javascript_include':
-                $this->javascript_include =$value;
-                break;
+           ;
             default:
-                echo 'Värdet finns inte';
+                echo "Värdet finns inte {$property}";
         }
-
     }
 
     public static function menu($items) {
         CMenu::show($items);
-  }
-  
-  
+    }
+
 }
