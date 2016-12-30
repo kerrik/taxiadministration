@@ -28,9 +28,13 @@ $tango->set_property('title_append', "Administrera bilar");
 $tango->set_property('style',array('less', 'webroot/css/test.less'));
 $tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"); 
 $tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
-$tango->js_include( 'webroot/js/jquery/include/ui-1.10.0/jquery.ui.core.min.js'); 
 $tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
+$tango->js_include('webroot/js/jquery.plugin.js');
+$tango->js_include('webroot/js/jquery.timeentry/jquery.timeentry.js');
+$tango->js_include('webroot/js/jquery.timeentry/jquery.timeentry-sv.js');
+$tango->js_include( 'webroot/js/test.js');
 $tango->js_include( 'webroot/js/taxi_js.js');
+
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
 
@@ -41,10 +45,7 @@ include_once (TANGO_THEME_PATH);
 
 function test(){
     $cont="Ett testprogram";
-    $cont.="<div id='flash'>";
-    $cont.="<p id='text' class='red'>Hi this text should be replaced when page and DOM is loaded.</p>";
-    $cont.="</div>";
-    $cont.="";
+    $cont.="<p>Enter your time: <input type='text' class='defaultEntry' size='10'></p>";
     $cont.="";
     $cont.="";
     $cont.="";
@@ -60,4 +61,27 @@ function test(){
 }
 
 
-
+//<script type="text/javascript">
+//
+//</script>
+//</head>
+//<body>
+//<h1>jQuery Time Entry Basics</h1>
+//<p>This page demonstrates the very basics of the
+//	<a href="http://www.jqueryscript.net/time-clock/jQuery-Plugin-for-Input-Field-Time-Format-Spinner-Time-Entry.html">jQuery Time Entry plugin</a>.
+//	It contains the minimum requirements for using the plugin and
+//	can be used as the basis for your own experimentation.</p>
+//
+//<script type="text/javascript">
+//
+//  var _gaq = _gaq || [];
+//  _gaq.push(['_setAccount', 'UA-36251023-1']);
+//  _gaq.push(['_trackPageview']);
+//
+//  (function() {
+//    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+//    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+//    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+//  })();
+//
+//</script>

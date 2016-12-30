@@ -1,5 +1,5 @@
 <?php
-
+$include = '';
 if ($_SERVER['REQUEST_URI'] === '/' || stristr($_SERVER['REQUEST_URI'], '/?') != FALSE){
         include 'webroot/start.php';
 } elseif (stristr($_SERVER['REQUEST_URI'], '.php') != FALSE){

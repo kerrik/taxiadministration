@@ -36,7 +36,6 @@ class CCab{
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-//        print_a($cabs, 'get_cabs');
     }
     
     

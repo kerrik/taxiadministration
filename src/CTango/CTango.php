@@ -131,7 +131,7 @@ EOD
 
     public function scripts_header() {
         $scripts_header='';
-        if (isset($this->javascript_include)) {
+        if (isset($this->javascript_include['header'])) {
             foreach ($this->javascript_include['header'] as $val) {
                 $scripts_header.= "<script src='$val'></script>\n";
             }

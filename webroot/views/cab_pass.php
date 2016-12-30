@@ -22,10 +22,8 @@ $content .= "\n<!-- Här börjar rutinten för att skapa inmatningsfält för pa
 
 
 $tider = $cab->pass_time();
-dump($tider);
 $pass = 0;
 $day = 0;
-$content .= "<div class='cab-form-row'>\n<div id='car-pass-{$pass}' class='cab-pass-head'>\n'";
 $content .= "<div class='cab-form-row'>\n<div class='field'>\n";
 for ($pass = 0; $pass < 2; $pass++) {
     $pass_etikett = $pass + 1;
@@ -33,7 +31,6 @@ for ($pass = 0; $pass < 2; $pass++) {
     $content .= "Pass " . $pass_etikett;
     $content .= "\n</div>\n";
 }
-$content .= "</div>\n";
 $content .= "</div>\n";
 for ($day = 0; $day < 7; $day++) {
     $content .= "<div class='cab-form-row'>\n";

@@ -1,18 +1,10 @@
-#calendar{
-}
+
 .calendarpost, .date{
   border-color: Silver;
   border-style: solid;
   border-width: 1px 1px;
 }
 
-#calendar{
-  float:left;
-  width: auto;
-  padding: 10px;
-  border-style: solid;
-  border-width: 1px 1px;
-  }
 
 
 #dates{
@@ -58,13 +50,15 @@
 
 .calendarpost, .date{
   font-size: 90%;
-  padding:2px 5px 2px 5px;
+  padding:2px 0px 2px 0px;
   height: 20px;
 }
 
 .calendarpost{
  /* background: #F2F2F2; */
   text-align: center;
+  float:left;
+  width:100%;
 }
 .date{
   float: none;
@@ -84,7 +78,7 @@
 .bil-calendar{
   float:left;
  /* background: grey; */
-  width:auto;
+  width:9em;
 
 
   border-top: 1px;
@@ -93,28 +87,38 @@
   border-width: 1px 1px;
 }
 .bil-rubrik, .bil-rubrik-tid{
-  float: none;
+  float: left;
   height: 20px;
  /* background: white; */
   text-align: center;
 }
 .bil-rubrik{
-  width:100px;
+  width:100%;
 /*  background: #CC9999 */
+}
+.bil-rubrik-tid{
+    width: 50%;
+}
+div .bil-posts{
+    float:left;
+    width:4,2em;
+    
 }
 
 .bil-day{
-  width: 50%;
+  width: 100%;
+  height:20px;
   float:left;
  /* background: #66CC99 */
 }
  .bil-night{
-  width: 50%;
+  width: 100%;
+  height:20px;
   float:right;
  /* background: #660099;  */
 }
 .trigger {
-	cursor : help; 
+	cursor : help;
 	border-bottom: 1px dashed white;
 }
 .trigger:hover {
@@ -125,7 +129,7 @@
 	padding: 1px;
 	background-color: white;
 	border: 1px solid grey;
-	border-radius : 5px; 
+	border-radius : 5px;
 }
 
 .tooltip h2 {

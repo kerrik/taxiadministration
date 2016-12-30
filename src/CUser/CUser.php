@@ -15,6 +15,7 @@ class CUser {
 
     public function __construct() {
         // convert $users to objekt ...
+        echo 'nu kör vi users';
         $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
             $this->login();

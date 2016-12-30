@@ -54,7 +54,7 @@ class CDatabase {
         self::$num_queries++;
 
         if ($debug) {
-            echo "<p>$sql= <br><pre>{$sql}</pre></p><p> Number $sql= " . self::$num_queries . "</p><p><pre>" . print_r($parametrar, 1) . "</pre></p>";
+            echo "<p>sql= <br><pre>{$sql}</pre></p><p> Number sql= " . self::$num_queries . "</p><p><pre>" . var_dump($parametrar) . "</pre></p>";
         }//end if
 
         $this->stm = self::$db->prepare($sql);
@@ -78,7 +78,7 @@ class CDatabase {
         self::$num_queries++;
 
         if ($debug) {
-            echo "<p>$sql= <br><pre>{$sql}</pre></p><p> Number $sql= " . self::$num_queries . "</p><p><pre>" . print_r($parametrar, 1) . "</pre></p>";
+            echo "<p>sql= <br><pre>{$sql}</pre></p><p> Number sql= " . self::$num_queries . "</p><p><pre>" . print_r($parametrar) . "</pre></p>";
         }
         $this->stm = self::$db->prepare($sql);
         return $this->stm->execute($parametrar);
