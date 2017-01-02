@@ -1,100 +1,97 @@
 
-.calendarpost, .date{
-  border-color: Silver;
-  border-style: solid;
-  border-width: 1px 1px;
-}
+
 
 
 
 #dates{
-  float: left;
-  width: 54px;
-  border-color: green;
-  border-style: solid;
-  border-width: 1px 1px;
- /* background: #D4D4D4;*/
+    float: left;
+    width: 54px;
+    border-color: green;
+    border-style: solid;
+    border-width: 1px 1px;
+    /* background: #D4D4D4;*/
 }
 .rubrik{
-  float: left;
-  font-size: 130%;
-  height: 20px;
-  width: 100%
+    float: left;
+    font-size: 130%;
+    height: 20px;
+    width: 100%
 }
 #calendar_heading{
-  float: left ;
- /* background: #4FB9FF; */
-  width: 100%;
+    float: left ;
+    /* background: #4FB9FF; */
+    min-height: 4em;
+    width: 100%;
 }
 #calendar_heading_driver{
-  float: left;
-  width: 100%;
+    float: left;
+    width: 100%;
 }
 #calendar_heading_date{
-  float: left;
-  text-align: center;
+    float: left;
+    text-align: center;
 }
 
 .prev_month, .next_month{
-  margin-left: 20px ;
-  margin-right: 20px ;
+    margin-left: 20px ;
+    margin-right: 20px ;
 }
 .next_month{
-  float: right;
-  text-align: right;
+    float: right;
+    text-align: right;
 }
 .prev_month{
-  float: left;
-  text-align: left;
+    float: left;
+    text-align: left;
 }
 
 .calendarpost, .date{
-  font-size: 90%;
-  padding:2px 0px 2px 0px;
-  height: 20px;
+    font-size: 90%;
+    height: 20px;
 }
 
 .calendarpost{
- /* background: #F2F2F2; */
-  text-align: center;
-  float:left;
-  width:100%;
+    /* background: #F2F2F2; */
+    text-align: center;
+    float:left;
 }
 .date{
-  float: none;
- /* background: #E8E8E8; */
+    float: left;
+    width: 100%;
+    /* background: #E8E8E8; */
 }
 .right{
-  float: right;
-  text-align: right;
+    float: right;
+    text-align: right;
 }
 .left{
-  float: left;
-  text-align: left;
+    float: left;
+    text-align: left;
 }
-
 
 
 .bil-calendar{
-  float:left;
- /* background: grey; */
-  width:9em;
-
-
-  border-top: 1px;
-  border-color: blue;
-  border-style: solid;
-  border-width: 1px 1px;
+    float:left;
+    /* background: grey; */
+    width:9em;
+    height: auto;
+    border-top: 1px;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-color: blue;
+    border-style: solid;
+    /*border-width: 1px 1px;*/
 }
 .bil-rubrik, .bil-rubrik-tid{
-  float: left;
-  height: 20px;
- /* background: white; */
-  text-align: center;
+    float: left;
+    height: 20px;
+    /* background: white; */
+    text-align: center;
 }
 .bil-rubrik{
-  width:100%;
-/*  background: #CC9999 */
+    width:100%;
+    /*  background: #CC9999 */
 }
 .bil-rubrik-tid{
     width: 50%;
@@ -102,92 +99,89 @@
 div .bil-posts{
     float:left;
     width:4,2em;
-    
+
 }
 
 .bil-day{
-  width: 100%;
-  height:20px;
-  float:left;
- /* background: #66CC99 */
+    width: 100%;
+    height:20px;
+    float:left;
+    /* background: #66CC99 */
 }
- .bil-night{
-  width: 100%;
-  height:20px;
-  float:right;
- /* background: #660099;  */
+.bil-night{
+    width: 100%;
+    height:20px;
+    float:right;
+    /* background: #660099;  */
 }
 .trigger {
-	cursor : help;
-	border-bottom: 1px dashed white;
+    cursor : help;
+    border-bottom: 1px dashed white;
 }
 .trigger:hover {
-	color: rgb(255,0,0);
+    color: rgb(255,0,0);
 }
 
 .tooltip {
-	padding: 1px;
-	background-color: white;
-	border: 1px solid grey;
-	border-radius : 5px;
+    padding: 1px;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius : 5px;
 }
 
 .tooltip h2 {
 
 }
 .tooltip p {
-	color: black !important;
+    color: black !important;
 }
 
 /* Bil */
 
 #listbox{
-  float: left ;
-  width: 40px ;
-  padding: 2px ;
-  border-style: solid ;
-  border-width: 1px ;
+    float: left ;
+    width: 40px ;
+    padding: 2px ;
+    border-style: solid ;
+    border-width: 1px ;
 }
 #listbox_driver{
-  float: left ;
-  width: 150px ;
-  padding: 2px ;
-  border-style: solid ;
-  border-width: 1px ;
+    float: left ;
+    width: 150px ;
+    padding: 2px ;
+    border-style: solid ;
+    border-width: 1px ;
 }
 
 
 #listbox a, #listbox_driver a{
-  color:black;
-  text-decoration: none;
+    color:black;
+    text-decoration: none;
 }
 .txi-form{
-  float: left ;
-  width: 400px;
-   border-top: 1px;
-  border-color: blue;
-  border-style: solid;
-  border-width: 1px 1px;
+    float: left ;
+    width: 400px;
+    border-top: 1px;
+    border-color: blue;
+    border-style: solid;
+    border-width: 1px 1px;
 }
 .txi-form .fieldrow{
-  float: left;
-  width: 100%;
+    float: left;
+    width: 100%;
 }
 .fieldrow .label{
-  float: left;
+    float: left;
 }
 .fieldrow .field{
-  float: right;
-  width: 250px; 
+    float: right;
+    width: 250px; 
 }
 .fieldrow .pass-head{
-  float: left;
-  width: 120px;
+    float: left;
+    width: 120px;
 }
 
-.pass{
-  width: 40px;
-}
 .driver-cal-day{
     float: left;
     height: 20px;

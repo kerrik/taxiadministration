@@ -9,13 +9,12 @@
  */
 class CUser {
 
-    private $user = null;
+    private $user = [];
     private $users = array();
     private $user_data = array();
 
     public function __construct() {
         // convert $users to objekt ...
-        echo 'nu kör vi users';
         $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
             $this->login();
@@ -32,14 +31,21 @@ class CUser {
     public function get_users() {
         // Fyller $users med alla användare
         global $db;
-        $sql = 'SELECT id, acronym, name, role FROM User ORDER BY name;';
+        $sql = 'SELECT * FROM User ORDER BY name;';
         $row = $db->query_DB($sql, array(), false);
         if ($row) {
             do {
-                $this->users[] = $row;
+                $users[] = $row;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
+        foreach ($users as $user){
+            $temp_user[$user->id]['acronym']=$user->acronym;
+            $temp_user[$user->id]['name']=$user->name;
+            $temp_user[$user->id]['role']=$user->role;
+            $temp_user[$user->id]['display_name']=$user->display_name;
+        }
+        $this->users=$temp_user;
     }
 
     private function get_user_data($id) {
@@ -84,7 +90,8 @@ class CUser {
             $this->user = $db->query_DB($sql, array($_SESSION['user']), FALSE);
             $this->user->logged_in = isset($this->user->id) ? true : false;
         } else {
-            $this->user->logged_in = false;
+            $this->user['logged_in'] = false;
+            $this->user = (object) $this->user;
         }
         return $this->user->logged_in;
     }

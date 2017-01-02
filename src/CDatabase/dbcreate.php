@@ -17,6 +17,7 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'User' , 'sql'=> <<<EOF
 (
   id INT AUTO_INCREMENT PRIMARY KEY,
   acronym CHAR(12) UNIQUE NOT NULL,
+  display_name CHAR(6) UNIQUE NOT NULL,
   name VARCHAR(80),
   password CHAR(32),
   role INT,
@@ -24,12 +25,18 @@ $dbcreate[] = array('type'=>'TABLE', 'name'=>'User' , 'sql'=> <<<EOF
 ) ENGINE INNODB CHARACTER SET utf8;
 EOF
 , 'data'=> <<<EOF
-INSERT INTO User (acronym, name, role, salt) VALUES 
-    ('doe', 'John/Jane Doe', 10, unix_timestamp()),
-    ('admin', 'Administrator', 1, unix_timestamp())
+INSERT INTO User (acronym,display_name, name, role, salt) VALUES 
+    ('pedern','Peder', 'Peder Nordenstad', 10, unix_timestamp()),
+    ('jerry','Jerry', 'Jerry', 10, unix_timestamp()),
+    ('admamfr','Adam', 'Adams Freimanis', 10, unix_timestamp()),
+    ('johangr','Johan', 'Johan Granlund', 10, unix_timestamp()),
+    ('hansf','Hans', 'Hans Fredriksson', 1, unix_timestamp())
 ;
-UPDATE User SET password = md5(concat('doe', salt)) WHERE acronym = 'doe';
-UPDATE User SET password = md5(concat('admin', salt)) WHERE acronym = 'admin';
+UPDATE User SET password = md5(concat('pederno', salt)) WHERE acronym = 'pedern';
+UPDATE User SET password = md5(concat('jerry', salt)) WHERE acronym = 'jerry';
+UPDATE User SET password = md5(concat('adamfr', salt)) WHERE acronym = 'adamfr';
+UPDATE User SET password = md5(concat('johangr', salt)) WHERE acronym = 'johangr';
+UPDATE User SET password = md5(concat('hansfre', salt)) WHERE acronym = 'hansf';
      
 EOF
     ); //end $dbcreate

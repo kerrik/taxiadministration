@@ -14,9 +14,13 @@
 class CCalendar {
 
     public $datum = array();
+    private $calendar_data = [];
+    public $the_calendar = [];
 
     public function __construct() {
         $this->dates = $this->parse_days();
+        $this->fetch_calendar();
+        $this->pass_link();
 //      $this->get_drivers( true );
 //      $this->fetch_calendar() ;
     }
@@ -45,7 +49,7 @@ class CCalendar {
         if ($dates['offset'] == 0)
             $dates['offset'] = 7;
         $foo = $dates['year'] . '-' . $dates['month'] . '-1';
-        $dates['date_array'] = $this->array_with_dates($foo, $dates['offset']);
+        $dates['date_array_calendar'] = $this->array_with_dates($foo, $dates['offset']);
         $this->datum = $dates;
         return $dates;
     }
@@ -73,35 +77,42 @@ class CCalendar {
     #
      #########################################################################
 
-    public function day_name($short, $day) {
+    public function day_name($short, $day = null, $date = null) {
 
         $day_length = (!$short) ? 'l' : 'D';
-        $day = date($day_length, mktime(0, 0, 0, $this->datum['month'], $day, $this->datum['year']));
-        $day . "\n";
+        if (empty($date)) {
+            $day = date($day_length, mktime(0, 0, 0, $this->datum['month'], $day, $this->datum['year']));
+        } else {
+            $year = substr($date, 0, 2);
+            $day = substr($date, 8, 2);
+            $month = substr($date, 5, 2);
+            $day = date($day_length, mktime(0, 0, 0, $month, $day, $year));
+        }
         $day = (!strpos($day, 195) ? substr($day, 0, 2) : substr($day, 0, 3));
         switch ($day) {
-        case "Mo";
-            $day = "M&aring;";
-            break;
-        case 'Tu';
-            $day = "Ti";
-            break;
-        case "We";
-            $day = "On";
-            break;
-        case "Th";
-            $day = "To";
-            break;
-        case "Fr";
-            $day = "Fr";
-            break;
-        case "Sa";
-            $day = "L&ouml;";
-            break;
-        case "Su";
-            $day = "S&ouml;";
-            break;
+            case "Mo";
+                $day = "M&aring;";
+                break;
+            case 'Tu';
+                $day = "Ti";
+                break;
+            case "We";
+                $day = "On";
+                break;
+            case "Th";
+                $day = "To";
+                break;
+            case "Fr";
+                $day = "Fr";
+                break;
+            case "Sa";
+                $day = "L&ouml;";
+                break;
+            case "Su";
+                $day = "S&ouml;";
+                break;
         }
+        $day = $day . "\n";
         return $day;
     }
 
@@ -113,7 +124,7 @@ class CCalendar {
       ########################################################################
 
     public function out_year() {
-       return $this->dates['year'];
+        return $this->dates['year'];
     }
 
 //end txi_year
@@ -152,31 +163,76 @@ class CCalendar {
 
 //end txi_date
 
-    public function fetch_calendar(){
-      global $db;
-      
-      $sql = "SELECT cab,
-                  pass AS pass,
-                  start_date AS start_date,
-                  driver AS driver,
-                  id ,
-                  start_time,
-                  end_time
+    private function fetch_calendar() {
+        global $db;
+
+        $sql = "SELECT cab, pass, start_date AS date, driver AS driver, id , start_time, end_time
               FROM cab_pass
               WHERE start_date LIKE ?
               AND type = 1
-              ORDER BY cab, start_date;";
-      
-      
+              ORDER BY pass, cab, start_date;";
 
-        $row = $db->query_DB($sql, array($this->datum['year_month']."-%"), FALSE);
+        $row = $db->query_DB($sql, array($this->datum['year_month'] . "-%"), FALSE);
+        $calendar_data = [];
         if ($row) {
             do {
-                $calendar_data[] = $row;
+                $calendar_data[$row->date][$row->cab][$row->pass]['driver'] = $row->driver;
+                $calendar_data[$row->date][$row->cab][$row->pass]['id'] = $row->id;
+                $calendar_data[$row->date][$row->cab][$row->pass]['start_time'] = $row->start_time;
+                $calendar_data[$row->date][$row->cab][$row->pass]['end_time'] = $row->end_time;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        return $calendar_data;
-    }  
+//        print_a($calendar_data);
+        $this->calendar_data = $calendar_data;
+    }
+
+    private function pass_link() {
+        global $user;
+        $users = $user->users();
+        $day_in_month = 1; //räknare för att skapa dagnummera
+        $pass_array = [];
+        foreach ($this->calendar_data as $datum => $cab) {
+            $day_name = $this->day_name(true, FALSE, $datum);
+            $pass_row = "<div class='cal-form-row'>\n<div class='cal-date_name-field left'>\n{$day_name}\n</div>\n<div class='cal-date_name-field left'>\n{$day_in_month}\n</div>\n";
+            $cab_row = "<div class='cal-form-row'>\n<div class='cal-date_name-field left'>\n</div>\n<div class='cal-date_name-field left'>\n</div>\n";
+            $pass_name_row="<div class='cal-form-row'>\n<div class='cal-date_name-field left'>\n</div>\n<div class='cal-date_name-field left'>\n</div>\n";
+            foreach ($cab as $cabdata => $pass) {
+//                print_a($cabdata, 'passdata');
+                $cab_row .= "<div class='bil-rubrik'>\n{$cabdata}\n</div>";
+                $pass_name_row .= "<div class='pass-rubrik'>\nDag\n</div>\n<div class='pass-rubrik'>\nNatt\n</div>\n";
+//                $the_calendar[$pass][]= ( $pass == 0) ? "<div class='bil-day'>" : "<div class='bil-night'>";
+                foreach ($pass as $passdata) {
+                    $driver = ( empty($passdata['driver']) ) ? '-----' : $users[$passdata['driver']]['display_name'];
+                    $link = "<div class='calendarpost pass' data-tooltip='tip1'  calendar-id='{$passdata['id']}' ";
+                    $link .= "calendar-time='{$passdata['start_time']}-{$passdata['end_time']} calendar-type='{$passdata['id']}'>\n";
+                    $link .= $driver . "\n";
+                    $link .= "</div><!-- efter pass -->\n";
+                    $pass_row .= $link;
+                }
+            }
+            $this->the_calendar['pass'][] = $pass_row ."</div><!--efter row-->\n";
+            $day_in_month = $day_in_month +1;
+        }
+            $this->the_calendar['cab'] = $cab_row ."</div><!--efter row-->\n";
+            $this->the_calendar['pass_name'] = $pass_name_row ."</div><!--efter row-->\n";
+//        print_a($this->the_calendar, 'the_calendar');
+    }
+
+//    <div class="calendarpost" data-tooltip="tip1" calendar-id="611" calendar-time="03:00-18:00" calendar-type="820" style="background-color: rgb(242, 242, 242);">Gösta</div>
+//    for ($counter1 = 1; $counter1 <= $dates->datum['days_in_month']; $counter1++) {
+//        $date = $dates->datum['year'] . '-' . sprintf("%02s", $dates->datum['month']) . '-' . sprintf("%02s", $counter1);
+//        $post = $kalendar[$pass][$date];
+//        $duration = $post['start_time'] . '-' . $post['end_time'];
+////        $txi_driver = ( $post['driver'] ) ? $user->users[driver]->acronym : '-----';
+//        $txi_driver = ( $post['driver'] ) ? "nisse\n" : "-----";
+////        $txi_driver = ( $post['id'] ) ? $txi_driver : '';
+//         return $calendar_post;
+//    }//end for
+//}
+
+    public function calendar_data() {
+        return $this->calendar_data;
+    }
 
 }

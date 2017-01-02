@@ -65,16 +65,18 @@ function driverinfo() {
         $content .= "<div class='driver-form-input'><input type='text' name='password_check' value=''></div></br>\n";
         $content .= "</div>";
     } else {
+// Här börjar rutintn för inloggad förare        
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<select name='use_driver'>";
+// Om inloggad är admin val för ny förare
         if ($user->role() == 1 AND $selected_driver != -1) {
             $content .= "<option value='-1'>Ny förare</option>\n";
         }
-        foreach ($user->users() as $userdata) {
-            $mark_selected = ($userdata->id == $selected_driver) ? 'SELECTED' : '';
-            $content .= "<option value='{$userdata->id}' {$mark_selected}>{$userdata->name}</option>\n";
+// Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
+        foreach ($user->users() as $user_data_id=>$userdata) { 
+            $mark_selected = ($user_data_id == $selected_driver) ? 'SELECTED' : '';
+            $content .= "<option value='{$user_data_id}' {$mark_selected}>{$userdata['name']}</option>\n";
         }
-
         $content .= "</select>";
         $content .= "</div>";
         $content .= "<div class='driver-form-label'><input type='submit' value='Visa'></br>\n";
@@ -85,6 +87,7 @@ function driverinfo() {
         $content .= "<fieldset></br>\n";
         $content .= "<legend>Förarinfo</legend>\n";
     }
+//här kommer fälten från user-posten
     foreach ($user->user_data($selected_driver) as $userdata) {
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'><label>{$userdata->user_data_descr}  </label></div>";

@@ -43,9 +43,10 @@ include_once (TANGO_THEME_PATH);
 /// inget under här kommer med. Dumdjävel.
 
 function test() {
+    global $user;
     $cal = new CCalendar();
     $cab = new CCab;
-    $cab_data = $cal->fetch_calendar(true);
+    $cab_data = $cal->calendar_data();
 
     $cont = "<div id='form-cab'>\n";
     $cont .= "<div class='cab-form-row'>\n";
@@ -64,36 +65,22 @@ function test() {
     $cont .= $cal->out_link_next_month();
     $cont .= "</span>\n";
     $cont .= "</div><!-- #calendar_heading_date -->\n";
+    $cont .= "<<select id='current_driver' name='driver' size='1'>>";
+// Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
+    foreach ($user->users() as $user_data_id => $userdata) {
+        $cont .= "<option value='{$user_data_id}' >{$userdata['display_name']}</option>\n";
+    }
+    $cont .= "</select>";
     $cont .= "</div><!-- .rubrik -->\n";
     $cont .= "</div><!-- #calendar_heading -->\n";
-    $cont .= "<div id='dates'>\n";
-    $cont .= "<div class='bil-rubrik'>\n";
-    $cont .= "</div> <!--just for making space -->\n";
-    for ($counter1 = 1; $counter1 <= $cal->datum['days_in_month']; $counter1++) {
-        $cont .= "<div class='date' id='day" . $counter1 . "'>\n<span class='left'>\n";
-        $cont .= $cal->day_name(true, $counter1) . "\n";
-        $cont .= "</span><span class='right'>{$counter1}</span>\n</div>\n";
-    }//end for
-    $cont .= "</div> <!--dates-->\n";
-    foreach ($cab->cabs() as $cab => $cab_data) {
-        $cont .= "<div class='bil-calendar'>\n";
-        $cont .= "<div class='bil-rubrik'>\n";
-        $cont .= "{$cab}" . "\n";
-    $cont .= "</div><!-- .rubrik -->";
-        for ($pass = 0; $pass < $cab_data->pass; $pass++) {
-            $cont .= "<div class='bil-rubrik-tid'>\n";
-            $cont .= ( $pass == 0) ? "<div class='bil-day'>" : "<div class='bil-night'>";
-            $cont .= "\n";
-            $cont .= ($pass == 0) ? 'Dag' : 'Natt';
-            $cont .= "</div>\n";
-            $cont .= tur_cal_print_drivers($cab, $pass, $nodak_taxis[$cab]);
-            $cont .= "</div><!-- .bil-day/bil-night -->\n";
-            $cont .= "";
-            $cont .= "";
-        } //end for
-        $cont .= "</div><!-- .bil-calendar -->\n";
-    } //end foreach
-    $cont .= "";
+    $cont .= $cal->the_calendar['cab'];
+    $cont .= $cal->the_calendar['pass_name'];
+    foreach ($cal->the_calendar['pass'] as $calendar_row) {
+        $cont .= $calendar_row;
+    }
+//        
+//        $cont .= "</div><!-- .bil-calendar -->\n";
+//    } //end foreach
     $cont .= "";
     $cont .= "";
     $cont .= "";
@@ -128,7 +115,6 @@ function test() {
 function tur_cal_print_drivers($bil, $pass, $kalendar) {
     global $user;
     global $dates;
-
     $post = array();
     for ($counter1 = 1; $counter1 <= $dates->datum['days_in_month']; $counter1++) {
         $date = $dates->datum['year'] . '-' . sprintf("%02s", $dates->datum['month']) . '-' . sprintf("%02s", $counter1);
@@ -137,7 +123,7 @@ function tur_cal_print_drivers($bil, $pass, $kalendar) {
 //        $txi_driver = ( $post['driver'] ) ? $user->users[driver]->acronym : '-----';
         $txi_driver = ( $post['driver'] ) ? "nisse\n" : "-----";
 //        $txi_driver = ( $post['id'] ) ? $txi_driver : '';
-        $calendar_post = "<div class='calendarpost' data-tooltip='tip1'  calendar-id='" . $post['id'] . "' calendar-time='" . $duration . "' calendar-type='" . $bil . "'>\n" . $txi_driver . "</div>\n";
+        $calendar_post = "<div class='calendarpost' data-tooltip='tip1'  calendar-id='" . $counter1 . "' calendar-time='" . $duration . "' calendar-type='" . $bil . "'>\n" . $txi_driver . "</div>\n";
         return $calendar_post;
     }//end for
 }

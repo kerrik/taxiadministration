@@ -17,7 +17,6 @@ class CDates {
     public $datum = array();
 
     public function __construct() {
-        echo 'jag kör datum';
         $this->parse_days();
     }
 
