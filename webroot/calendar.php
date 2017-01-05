@@ -68,7 +68,7 @@ function test() {
     if ($user->role() != 1) {
         $cont .= "<div class='hidden_element'>";
     }
-    $cont .= "<<select id='current_driver' name='driver' size='1'>>";
+    $cont .= "<select id='current_driver' name='driver' size='1'>>";
 // Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
         foreach ($user->users() as $user_data_id => $userdata) {
             $mark_selected = ($user_data_id == $_SESSION['user']) ? 'SELECTED' : '';
