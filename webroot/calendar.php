@@ -26,12 +26,13 @@ include( __DIR__ . '/config.php');
 $tango->set_property('title', "Planering");
 $tango->set_property('title_append', "Planera bilar");
 $tango->set_property('style', array('css', 'webroot/css/old.css'));
+$tango->set_property('style', array('css', 'webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.css'));
 $tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
 $tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
-$tango->js_include('webroot/js/jquery/include/ui-1.10.0/jquery.ui.core.min.js');
+$tango->js_include('webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.js');
 $tango->js_include('webroot/js/taxi_js.js');
+$tango->js_include('webroot/js/comment-reply.min.js?ver=3.5.1');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
-
 
 $dates = new CDates();
 
@@ -45,7 +46,6 @@ include_once (TANGO_THEME_PATH);
 function test() {
     global $user;
     $cal = new CCalendar();
-    $cab = new CCab;
     $cab_data = $cal->calendar_data();
 
     $cont = "<div id='form-cab'>\n";
@@ -65,30 +65,41 @@ function test() {
     $cont .= $cal->out_link_next_month();
     $cont .= "</span>\n";
     $cont .= "</div><!-- #calendar_heading_date -->\n";
+    if ($user->role() != 1) {
+        $cont .= "<div class='hidden_element'>";
+    }
     $cont .= "<<select id='current_driver' name='driver' size='1'>>";
 // Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
-    foreach ($user->users() as $user_data_id => $userdata) {
-        $cont .= "<option value='{$user_data_id}' >{$userdata['display_name']}</option>\n";
-    }
+        foreach ($user->users() as $user_data_id => $userdata) {
+            $mark_selected = ($user_data_id == $_SESSION['user']) ? 'SELECTED' : '';
+            $cont .= "<option value='{$user_data_id}' {$mark_selected} >{$userdata['display_name']}</option>\n";
+        }
     $cont .= "</select>";
+    if ($user->role() != 1) {
+        $cont .= "</div >";
+    }
     $cont .= "</div><!-- .rubrik -->\n";
     $cont .= "</div><!-- #calendar_heading -->\n";
     $cont .= $cal->the_calendar['cab'];
     $cont .= $cal->the_calendar['pass_name'];
-    foreach ($cal->the_calendar['pass'] as $calendar_row) {
-        $cont .= $calendar_row;
-    }
+    if (!empty($cal->the_calendar['pass'])) {
+        foreach ($cal->the_calendar['pass'] as $calendar_row) {
+            $cont .= $calendar_row;
+        }
 //        
 //        $cont .= "</div><!-- .bil-calendar -->\n";
 //    } //end foreach
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
+        $cont .= "<div class='cab-form-row'>\n";
+        $cont .= "<form id= 'update_calendar' name= 'update' action='' method='post' >";
+        $cont .= "<input type= 'submit' name='update' value='Uppdatera' />";
+        $cont .= "</form>";
+    } elseif ($user->role() == 1) {
+        $cont .= "<div class='cab-form-row'>\n";
+        $cont .= "<form id= 'create_calendar' name= 'create' action='' method='post' >";
+        $cont .= " <input type= 'submit' name='create' value='Skapa kalender' />";
+        $cont .= "</form>";
+    }
+    $cont .= "</div>";
     $cont .= "";
     $cont .= "";
     $cont .= "";
@@ -110,22 +121,6 @@ function test() {
     $cont .= "</div><!-- .form_row -->\n";
 
     return $cont;
-}
-
-function tur_cal_print_drivers($bil, $pass, $kalendar) {
-    global $user;
-    global $dates;
-    $post = array();
-    for ($counter1 = 1; $counter1 <= $dates->datum['days_in_month']; $counter1++) {
-        $date = $dates->datum['year'] . '-' . sprintf("%02s", $dates->datum['month']) . '-' . sprintf("%02s", $counter1);
-        $post = $kalendar[$pass][$date];
-        $duration = $post['start_time'] . '-' . $post['end_time'];
-//        $txi_driver = ( $post['driver'] ) ? $user->users[driver]->acronym : '-----';
-        $txi_driver = ( $post['driver'] ) ? "nisse\n" : "-----";
-//        $txi_driver = ( $post['id'] ) ? $txi_driver : '';
-        $calendar_post = "<div class='calendarpost' data-tooltip='tip1'  calendar-id='" . $counter1 . "' calendar-time='" . $duration . "' calendar-type='" . $bil . "'>\n" . $txi_driver . "</div>\n";
-        return $calendar_post;
-    }//end for
 }
 
 //end tur_cal_print_days_in_month

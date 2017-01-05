@@ -15,7 +15,7 @@ class CUser {
 
     public function __construct() {
         // convert $users to objekt ...
-        $this->user = (object) $this->user;
+//        $this->user = (object) $this->user;
         if (isset($_POST['login'])) {
             $this->login();
         }
@@ -100,7 +100,7 @@ class CUser {
     //metod för inloggning
     public function login() {
         global $db;
-        $sql = "SELECT id FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
+        $sql = "SELECT id, role FROM User WHERE acronym = ? AND password = md5(concat(?, salt))";
         $this->user = $db->query_DB($sql, array($_POST['acronym'], $_POST['password']), FALSE);
         if (isset($this->user->id)) {
             $_SESSION['user'] = $this->user->id;
@@ -131,6 +131,9 @@ class CUser {
 
     public function users() {
         return $this->users;
+    }
+    public function user_role(){
+        return $this->user->role;
     }
 
     public function user_data($id = -1) {

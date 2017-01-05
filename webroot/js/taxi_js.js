@@ -8,47 +8,46 @@
 //  
 
 jQuery(document).ready(function ($) {
-    $('.tooltip').hide();
+    $(".calendarpost").tooltip();
     $('.calendarpost').hover(function () {
-        $(this).css('background-color', '#E8E8E8');
+        $(this).css('background-color', '#C0C0C0');
         $('#day' + $(this).attr('calendar-day')).css('background-color', '#F2F2F2');
-
-        $('.tooltip').text($(this).attr('calendar-time'));
-        var ttLeft,
-                ttTop,
-                $this = $(this),
-                $tip = $($this.attr('data-tooltip')),
-                triggerPos = $this.offset(),
-                triggerH = $this.outerHeight(),
-                triggerW = $this.outerWidth(),
-                tipW = $tip.outerWidth(),
-                tipH = $tip.outerHeight(),
-                screenW = $(window).width(),
-                scrollTop = $(document).scrollTop();
-        if (triggerPos.top - tipH - scrollTop > 0) {
-            ttTop = triggerPos.top - tipH + 30;
-        } else {
-            ttTop = triggerPos.top + triggerH + 100;
-        }
-
-        var overFlowRight = (triggerPos.left + tipW) - screenW;
-        if (overFlowRight > 0) {
-            ttLeft = triggerPos.left - overFlowRight - 10;
-        } else {
-            ttLeft = triggerPos.left + triggerW;
-        }
-        var post_id = $(this).attr('calendar-id');
-        if (post_id > 0) {
-            $('.tooltip').css({left: ttLeft,
-                top: ttTop,
-                position: 'absolute'
-            })
-                    .stop(true).delay(800).fadeIn(200);
-        }
-    },
-            function () {
-                $('.tooltip').hide();
-            }); // end mouseover
+//        $('.tooltip').text($(this).attr('calendar-time'));
+//        var ttLeft,
+//                ttTop,
+//                $this = $(this),
+//                $tip = $($this.attr('data-tooltip')),
+//                triggerPos = $this.offset(),
+//                triggerH = $this.outerHeight(),
+//                triggerW = $this.outerWidth(),
+//                tipW = $tip.outerWidth(),
+//                tipH = $tip.outerHeight(),
+//                screenW = $(window).width(),
+//                scrollTop = $(document).scrollTop();
+//        if (triggerPos.top - tipH - scrollTop > 0) {
+//            ttTop = triggerPos.top - tipH + 30;
+//        } else {
+//            ttTop = triggerPos.top + triggerH + 100;
+//        }
+//
+//        var overFlowRight = (triggerPos.left + tipW) - screenW;
+//        if (overFlowRight > 0) {
+//            ttLeft = triggerPos.left - overFlowRight - 10;
+//        } else {
+//            ttLeft = triggerPos.left + triggerW;
+//        }
+//        var post_id = $(this).attr('calendar-id');
+//        if (post_id > 0) {
+//            $('.tooltip').css({left: ttLeft,
+//                top: ttTop,
+//                position: 'absolute'
+//            })
+//                    .stop(true).delay(800).fadeIn(200);
+//        }
+//    },
+//            function () {
+//                $('.tooltip').hide();
+    }); // end mouseover
 
     $('.calendarpost').mouseout(function () {
         $(this).css('background-color', '#F2F2F2');
@@ -64,12 +63,12 @@ jQuery(document).ready(function ($) {
         var tfl_update = '0';
         var namn = $('#current_driver :selected').text();
         if (post_id > 0) {
-            if (message == '-----') {
-                message = namn;
-                tfl_update = tfl;
-            } else if (message == namn) {
+            if (message == namn) {
                 message = "-----";
                 tfl_update = '';
+            } else if (message == '-----') {
+                message = namn;
+                tfl_update = tfl;
             } else {
                 message = namn;
                 tfl_update = tfl;
@@ -84,15 +83,21 @@ jQuery(document).ready(function ($) {
 //        showPeriodLabels: false,
 //    });
     $('.pass').mouseout(function () {
-        $(this).css('background-color', '#F2F2F2');
-        $('#day' + $(this).attr('calendar-day')).css('background-color', '#E8E8E8');
+        var $background
+        var message = $(this).text();
+        if (message == '-----') {
+            $background = 'greenyellow';
+        } else {
+            $background = 'E8E8E8';
+        }
+        $(this).css('background-color', $background);
+        $('#day' + $(this).attr('calendar-day')).css('background-color', $background);
     }); // end mouseout
 
-   
-    $(function () { 
+
+    $(function () {
         $('.pass').timeEntry({spinnerImage: ''});
     });
-
 }); // end ready
 
 

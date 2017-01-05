@@ -21,6 +21,8 @@ define('TANGO_FUNCTIONS_PATH', TANGO_INSTALL_PATH . '/webroot/functions/');
 define('TANGO_VIEWS_PATH', TANGO_INSTALL_PATH . '/webroot/views/');
 define('TANGO_SCRIPT_PATH', __DIR__ . '/js/'); 
 
+define('DRIVER_CHANGE',7);
+
 
 /**
  * 

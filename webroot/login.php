@@ -21,7 +21,9 @@ $tango->main_content(<<<EOD
 EOD
 ); //end main_content
 
-if( $user->logged_in()){    
+if( $user->logged_in()){  
+    $url= 'start';
+    header("location:$url");
     $tango->main_content("<p>Du &auml;r inloggad som " . $user->name() . " </p>");    
     $tango->main_content("<p><input type='submit' name='logout' value='Logout'/></p>");
 }else{
