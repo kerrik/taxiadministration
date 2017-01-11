@@ -14,14 +14,14 @@ mb_internal_encoding("UTF-8");
 //ini_set('output_buffering', 0); //Skriv felen direkt
 // Skapar sökvägar som ska användas i systemet
 
-define('TANGO_INSTALL_PATH', __DIR__ . '/..');
+        define('TANGO_INSTALL_PATH', __DIR__ . '/..');
 define('TANGO_SOURCE_PATH', TANGO_INSTALL_PATH . '/src/');
 define('TANGO_THEME_PATH', TANGO_INSTALL_PATH . '/theme/renderer.php');
 define('TANGO_FUNCTIONS_PATH', TANGO_INSTALL_PATH . '/webroot/functions/');
 define('TANGO_VIEWS_PATH', TANGO_INSTALL_PATH . '/webroot/views/');
-define('TANGO_SCRIPT_PATH', __DIR__ . '/js/'); 
+define('TANGO_SCRIPT_PATH', __DIR__ . '/js/');
 
-define('DRIVER_CHANGE',7);
+define('DRIVER_CHANGE', 7);
 
 
 /**
@@ -92,14 +92,14 @@ if ($use_login) {
 }
 
 include 'menu.php';
-if ($include != '/cab'){
-    if (isset($_SESSION)){
+if ($include != '/cab') {
+    if (isset($_SESSION)) {
         unset($_SESSION['cab']);
-    }  else {
-         echo 'Finns inte';
+    } else {
+        echo 'Finns inte';
     }
 }
-    
+
 /**
  * Settings for $tango.
  * 
@@ -115,10 +115,8 @@ $tango->set_property('modernizr', 'js/modernizr.js');
 // 
 // För att få fart på google analytics skickar man sitt kontoid till CTango
 // $tango->set_property('google_analytics', '');
-
-
 // $tango->set_property('title',"");
 // $tango->set_property('title_append', "");
-// $tango->set_property('logo', "img/logo.jpg");
-    
+$tango->set_property('logo', "");
+
 

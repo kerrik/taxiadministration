@@ -10,7 +10,7 @@ class CTango {
     // Först lite settings för hela <head>
     private $lang = "sv";
     private $favicon = "";
-    private $style = array(array("css","webroot/css/style.css"));
+    private $style = array(array("css", "webroot/css/style.css"));
     private $embed_style = "";
     private $modernizr = 'webroot/js/modernizr.js';
     private $jquery = '';
@@ -19,6 +19,7 @@ class CTango {
     private $title = "";
     private $title_append = "";
     private $logo = "webroot/img/logo.jpg";
+    private $viewport = '<meta name = "viewport" content = "width=device-width, initial-scale=1" >';
     // Här kommer variablerna för sidinnehåll
 
     private $header = "";
@@ -50,8 +51,6 @@ class CTango {
             default :
                 return false;
         }
-
-
     }
 
     public function lang() {
@@ -80,7 +79,7 @@ class CTango {
 
     public function header() {
         if (!$this->header) {
-            $this->header = "<img class='sitelogo left' src=' $this->logo' alt=''/>\n";
+            $this->header = (empty($this->logo)) ? "" : "<img class='sitelogo left' src='{$this->logo}' alt=''/>\n";
             $this->header .= "<div class='sitetitle left'>$this->title</div>\n";
             $this->header .= "<div class='siteslogan left'>$this->title_append</div>\n";
         }
@@ -100,12 +99,15 @@ class CTango {
 <html class='no-js' lang="$this->lang">
 <head>
     <meta charset='utf-8'/>
+   {$this->viewport}
+
+<meta name = "viewport" content = "width=device-width, initial-scale=1" >
     <title>$this->title</title>
 $this->favicon
 EOD
         ;
 //        print_a($this->style, '$this->style');
-        foreach ($this->style as $key=> $val) {
+        foreach ($this->style as $key => $val) {
             $head .= "<link rel='stylesheet' type='text/{$val[0]}' href='{$val[1]}'/>\n";
         }
         if ($this->embed_style) {
@@ -118,29 +120,29 @@ EOD
 EOD
             ;
         }
-       $head .= $this->scripts_header();
-        if ($this->modernizr) {
-            $head .= <<<EOD
-<script src='$this->modernizr'></script>
-EOD
-            ;
-        }
+        $head .= $this->scripts_header();
+//        if ($this->modernizr) {
+//            $head .= <<<EOD
+//<script src='$this->modernizr'></script>
+//EOD
+//            ;
+//        }
         $head .= "</head>\n";
         return $head;
     }
 
     public function scripts_header() {
-        $scripts_header='';
+        $scripts_header = '';
         if (isset($this->javascript_include['header'])) {
             foreach ($this->javascript_include['header'] as $val) {
-                $scripts_header.= "<script src='$val'></script>\n";
+                $scripts_header .= "<script src='$val'></script>\n";
             }
         }
         return $scripts_header;
     }
 
     public function scripts_footer() {
-        $scripts_footer= '';
+        $scripts_footer = '';
         if (isset($this->javascript_include['footer'])) {
             foreach ($this->javascript_include['footer'] as $val) {
                 $scripts_footer .= "<script src='$val'></script>\n";
@@ -207,7 +209,7 @@ EOD
             case 'modernizr':
                 $this->modernizr = $value;
                 break;
-           ;
+                ;
             default:
                 echo "Värdet finns inte {$property}";
         }

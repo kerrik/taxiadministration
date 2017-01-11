@@ -28,10 +28,10 @@ $tango->set_property('title_append', "Planera bilar");
 $tango->set_property('style', array('css', 'webroot/css/old.css'));
 $tango->set_property('style', array('css', 'webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.css'));
 $tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
-$tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
-$tango->js_include('webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.js');
+//$tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
+//$tango->js_include('webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.js');
 $tango->js_include('webroot/js/taxi_js.js');
-$tango->js_include('webroot/js/comment-reply.min.js?ver=3.5.1');
+//$tango->js_include('webroot/js/comment-reply.min.js?ver=3.5.1');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
 $dates = new CDates();

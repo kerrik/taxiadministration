@@ -195,24 +195,25 @@ class CCalendar {
         $day_in_month = 1; //räknare för att skapa dagnummera
         foreach ($this->calendar_data as $datum => $cab) {
             $day_name = $this->day_name(true, FALSE, $datum);
-            $sunday = ($day_name == 'S&ouml;') ? 'sunday' : '';
-            $pass_row = "<div class='cal-form-row {$sunday}'>\n<div class='cal-date_name-field left'>\n{$day_name}\n</div>\n<div class='cal-date_name-field left'>\n{$day_in_month}\n</div>\n";
-            $cab_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date_name-field left'>\n</div>\n<div class='cal-date_name-field left'>\n</div>\n";
-            $pass_name_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date_name-field left'>\n</div>\n<div class='cal-date_name-field left'>\n</div>\n";
+            $sunday = '';
+            if($day_name == 'S&ouml;'){
+            $day_css =  'sunday' ;
+            $day_css = 'cal-date-name-field_sun';
+            }elseif ($day_name == 'M&aring;'){
+            $day_css =  'cal-date-name-field_mon'; 
+            }else{
+            $day_css =  '';               
+            }
+            $pass_row = "<div class='cal-form-row {$sunday}'>\n<div class='cal-date-name-field {$day_css}'>\n{$day_name}\n</div>\n<div class='cal-date-name-field {$day_css}'>\n{$day_in_month}\n</div>\n";
+            $cab_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date-name-field'>\n</div>\n<div class='cal-date-name-field'>\n</div>\n";
+            $pass_name_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date-name-field'>\n</div>\n<div class='cal-date-name-field'>\n</div>\n";
             foreach ($cab as $cabdata => $pass) {
 //                print_a($cabdata, 'passdata');
                 $cab_row .= "<div class='bil-rubrik'>\n{$cabdata}\n</div>";
                 $pass_name_row .= "<div class='pass-rubrik'>\nDag\n</div>\n<div class='pass-rubrik'>\nNatt\n</div>\n";
 //                $the_calendar[$pass][]= ( $pass == 0) ? "<div class='bil-day'>" : "<div class='bil-night'>";
                 foreach ($pass as $passdata) {
-                    $redigera = $this->redigera_post($datum, $passdata['driver']);
-                    $driver = ( empty($passdata['driver']) ) ? '-----' : $users[$passdata['driver']]['display_name'];
-                    $free_day = ( empty($passdata['driver']) ) ? ' free-day' : '';
-                    $link = "<div class='pass{$free_day}{$redigera} ' data-tooltip='tip1'  calendar-id='{$passdata['id']}' ";
-                    $link .= "calendar-time='{$passdata['start_time']}-{$passdata['end_time']}' calendar-type='{$passdata['id']}'>\n";
-                    $link .= $driver . "\n";
-                    $link .= "</div><!-- efter pass -->\n";
-                    $pass_row .= $link;
+                    $pass_row .= $this->skapa_kalenderpost($passdata, $datum, $users);
                 }
             }
             $this->the_calendar['pass'][] = $pass_row . "</div><!--efter row-->\n";
@@ -227,12 +228,29 @@ class CCalendar {
         global $user;
         // skapavariabel med datum förare kan ändra datum från
         static $driver_change = DRIVER_CHANGE; // Antal dagar för möjlighet till redigering. Konstant sätts i config.php
-        $retur='';//
+        $retur = ''; //
         if ($datum > date('Y-m-d', strtotime("+{$driver_change} days"))) {
-            $retur = ($driver===$user->id()|| empty($driver))? ' calendarpost':'';
+            $retur = ($driver === $user->id() || empty($driver)) ? ' redigera' : '';
         }
-        $retur = ($user->user_role() == 1) ? ' calendarpost' : $retur;
+        $retur = ($user->user_role() == 1) ? ' redigera' : $retur;
         return $retur;
+    }
+
+    private function skapa_kalenderpost($passdata, $datum, $users) {
+        $redigera = $this->redigera_post($datum, $passdata['driver']);
+        if (empty($passdata['driver']) && empty($redigera)) {
+            $driver = "";
+        } elseif (empty($passdata['driver'])) {
+            $driver = '-----';
+        } else {
+            $driver = $users[$passdata['driver']]['display_name'];
+        }
+        $free_day = ( empty($passdata['driver']) && !empty($redigera)) ? ' free-day' : '';
+        $link = "<div id='{$passdata['id']}' class='calendarpost pass {$redigera} {$free_day} ' data-tooltip='tip1'  calendar-id='{$passdata['id']}' ";
+        $link .= "calendar-time='{$passdata['start_time']}-{$passdata['end_time']}' calendar-type='{$passdata['id']}'>\n";
+        $link .= $driver . "\n";
+        $link .= "</div><!-- efter pass -->\n";
+        return $link;
     }
 
     public function calendar_data() {
@@ -243,8 +261,7 @@ class CCalendar {
         if (isset($_POST['update'])) {
             global $db;
             $sql = "UPDATE cab_pass SET driver=? WHERE id=?;";
-
-            foreach ($_POST['tfl'] as $id => $value) {
+            foreach ($_POST['driver'] as $id => $value) {
                 $succed = $db->DB_execute($sql, array($value, $_POST['post_id'][$id]), FALSE);
             }
         }

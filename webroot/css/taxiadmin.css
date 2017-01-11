@@ -6,7 +6,7 @@
 /* föraradministration */
 #calendar_heading{
     float: left ;
-     background: darkseagreen; 
+    background: darkseagreen; 
     min-height: 4em;
     width: 100%;
 }
@@ -30,7 +30,14 @@
 
 .driver-form-label, .cab-form-label{
     min-width: 6em; 
-    
+
+}
+
+.cal-date-name-field,.pass, .pass-rubrik, cal-border{   
+    box-sizing: border-box; 
+    min-height: 1.45rem;
+    max-height: 1.45rem;
+    padding-top: 0.3rem;
 }
 
 .driver-form-field, .cab-form-field{
@@ -41,7 +48,7 @@
     float:left;
     min-width: 10rem; 
     max-width: 10rem;  
-    
+
 }
 .pass, .pass-rubrik{
     float:left;
@@ -51,50 +58,62 @@
 }
 .pass, .pass-rubrik, cal-border{
     border: 1px solid darkgrey; 
-    padding-top: 0.3rem;
-    height: 1rem;   
+}
+.pass-rubrik{
+    font-weight: bold;
 }
 .cal_sub_heading{
-     background: lightsteelblue;     
+    background: lightsteelblue;     
 }
 
 #calendar{
-  float:left;
-  width: 100%;
-  border-style: solid;
-  border-width: 1px 1px;
-  }
-  
-.cal-date_name-field{
-    min-width: 2rem; 
-    max-width: 2rem;  
-    min-height: 1em;
-    
-}
-.bil-rubrik, .bil-rubrik-tid{
-  float: left;
-  height: 20px;
-  max-width: 8rem;
-  min-width: 8rem;
- /* background: white; */
-  text-align: center;
+    float:left;
+    width: 100%;
+    border-style: solid;
+    border-width: 1px 1px;
 }
 
-.calendarpostd, .date{
+.cal-date-name-field{
+    float: left;
+    min-width: 1.5rem; 
+    max-width: 1.5rem;  
+    padding-left: 0.3rem;
+    font-weight: bold;
+}
+.cal-date-name-field_sun{
+    border-bottom:  1px solid darkgrey; 
+}
+.cal-date-name-field_mon{
+    border-top: 1px solid darkgrey; 
+}
+
+.bil-rubrik, .bil-rubrik-tid{
+    float: left;
+    height: 20px;
+    max-width: 8rem;
+    min-width: 8rem;
+    padding-top: 0.3rem;
+    text-align: center;
+    font-size: 130%;
+    font-weight: bold;
+}
+
+.calendarpost, .cal-date-name-field{
     font-size: 90%;
 }
 
-.calendarpostd{
-     background: #F2F2F2; 
-    text-align: center;
-    float:left;
-}
 .hidden_element{
     display: none;
 }
 .sunday{
     color: red;
 }
+.monday{
+    border-top: 1px solid darkgrey; 
+}
 .free-day{
-    background-color:  greenyellow;
+    background-color:  palegreen;
+}
+.post-in-focus{
+    background-color: gainsboro;
 }
