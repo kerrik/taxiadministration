@@ -12,8 +12,11 @@
  * @author peder
  */
 function save_driver() {
+    dump($_POST);
     global $db;
     global $user;
+    $test=$user->show_user(6);
+    dump($test, 'show_user');
     $return = new stdClass();
     $return->new_driver = check_password();
     $return->id = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];
@@ -26,10 +29,11 @@ function save_driver() {
     }
     if ($_POST['save']==1) {
         echo 'spara posten';
-        $sql = "INSERT INTO User (acronym, name, role, salt) VALUES (?, ?, 10, unix_timestamp());";
+        $sql = "INSERT INTO User (acronym, name, display_name, role, salt) VALUES (?, ?, 10, unix_timestamp());";
         $user_array[] = $_POST['acronym'];
         $user_array[] = $_POST['name'];
-        $succed = $db->DB_execute($sql, $user_array, FALSE);
+        $user_array[] = $_POST['display_name'];
+        $succed = $db->DB_execute($sql, $user_array, TRUE);
         if ($succed) {
             echo 'jag lyckades';
             $id = $db->id_new_post();

@@ -247,7 +247,7 @@ class CCalendar {
         }
         $free_day = ( empty($passdata['driver']) && !empty($redigera)) ? ' free-day' : '';
         $link = "<div id='{$passdata['id']}' class='calendarpost pass {$redigera} {$free_day} ' data-tooltip='tip1'  calendar-id='{$passdata['id']}' ";
-        $link .= "calendar-time='{$passdata['start_time']}-{$passdata['end_time']}' calendar-type='{$passdata['id']}'>\n";
+        $link .= "pass-time='{$passdata['start_time']}-{$passdata['end_time']}' calendar-type='{$passdata['id']}'>\n";
         $link .= $driver . "\n";
         $link .= "</div><!-- efter pass -->\n";
         return $link;

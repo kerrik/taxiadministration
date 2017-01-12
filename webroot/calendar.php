@@ -30,7 +30,7 @@ $tango->set_property('style', array('css', 'webroot/js/jquery/include/jquery-ui-
 $tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
 //$tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
 //$tango->js_include('webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.js');
-$tango->js_include('webroot/js/taxi_js.js');
+$tango->js_include('webroot/js/calendar.js');
 //$tango->js_include('webroot/js/comment-reply.min.js?ver=3.5.1');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
@@ -70,10 +70,10 @@ function test() {
     }
     $cont .= "<select id='current_driver' name='driver' size='1'>>";
 // Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
-        foreach ($user->users() as $user_data_id => $userdata) {
-            $mark_selected = ($user_data_id == $_SESSION['user']) ? 'SELECTED' : '';
-            $cont .= "<option value='{$user_data_id}' {$mark_selected} >{$userdata['display_name']}</option>\n";
-        }
+    foreach ($user->users() as $user_data_id => $userdata) {
+        $mark_selected = ($user_data_id == $_SESSION['user']) ? 'SELECTED' : '';
+        $cont .= "<option value='{$user_data_id}' {$mark_selected} >{$userdata['display_name']}</option>\n";
+    }
     $cont .= "</select>";
     if ($user->role() != 1) {
         $cont .= "</div >";
@@ -114,12 +114,12 @@ function test() {
     $cont .= "";
     $cont .= "";
     $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
     $cont .= "</div><!-- #calendar -->\n";
     $cont .= "</div><!-- .form_row -->\n";
 
+    $cont .= "<div class='tooltip' id='calendarpost'>";
+    $cont .= "<h2>Pass</h2>";
+    $cont .= " </div>";
     return $cont;
 }
 

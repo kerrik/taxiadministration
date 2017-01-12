@@ -33,7 +33,7 @@ $tango->js_include( 'webroot/js/jquery/include/ui-1.10.0/jquery.ui.core.min.js')
 $tango->js_include('webroot/js/jquery/jquery.ui.timepicker.js');
 $tango->js_include('webroot/js/jquery.timeentry/jquery.timeentry.js');
 $tango->js_include('webroot/js/jquery.timeentry/jquery.timeentry-sv.js');
-$tango->js_include( 'webroot/js/taxi_js.js');
+$tango->js_include( 'webroot/js/caradmin.js');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
 $cab = new CCab();

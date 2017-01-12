@@ -106,6 +106,12 @@ class CUser {
             $_SESSION['user'] = $this->user->id;
         }
     }
+    private function get_user_by_id($id){
+        global $db;
+        $sql= "SELECT id, display_name, name FROM User WHERE id=?;";
+        $return = $db->query_DB($sql,array($id),true);
+        return $return;
+    }
 
 // end login()
 //    metod för utloggning
@@ -140,6 +146,10 @@ class CUser {
         if ($id) {
             $return = $this->get_user_data($id);
         }
+        return $return;
+    }
+    public function show_user($id){
+        $return = $this->get_user_by_id($id);
         return $return;
     }
 

@@ -117,3 +117,11 @@
 .post-in-focus{
     background-color: gainsboro;
 }
+
+.tooltip {;
+          padding: 0.5rem;
+          background-color: white;
+          border: 1px solid rgb(195,151,51);
+          border-radius : 5px;
+          font-size: 80%;
+}

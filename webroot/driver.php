@@ -36,34 +36,19 @@ include_once (TANGO_THEME_PATH);
 
 function driverinfo() {
 //fyller $tango med lite data att skriva ut...
+    $current_driver = new CDriver;
     global $user;
     $driver = save_driver();
     $selected_driver = $driver->id;
 //#####################################################################
 
-    $content = "<div id='form-driver'>";
-    $content .= "<form action='' method='post'>";
-    $content .= "<fieldset>";
-    $content .= "<legend>Förare</legend>";
-    $content .= "<p>";
+    $content = "<div id='form-driver'>\n";
+    $content .= "<form action='' method='post'>\n";
+    $content .= "<fieldset>\n";
+    $content .= "<legend>\nFörare\n</legend>\n";
+    $content .= "<p>\n";
     if ($selected_driver < 0) {
         $content .= "<input type='hidden' name='use_driver' value= -2>\n";
-        $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>Inloggning  </label></div>\n";
-        $content .= "<div class='driver-form-input'><input type='text' name='acronym' value='{$driver->new_driver->acronym}'></div></br>\n";
-        $content .= "</div>\n";
-        $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>Namn  </label></div>";
-        $content .= "<div class='driver-form-input'><input type='text' name='name' value='{$driver->new_driver->name}'></br>\n";
-        $content .= "</div>\n";
-        $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>Password  </label></div>";
-        $content .= "<div class='driver-form-input'><input type='text' name='password' value=''></div></br>\n";
-        $content .= "</div>\n";
-        $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>Repetera  </label></div>";
-        $content .= "<div class='driver-form-input'><input type='text' name='password_check' value=''></div></br>\n";
-        $content .= "</div>";
     } else {
 // Här börjar rutintn för inloggad förare        
         $content .= "<div class='driver-form-row'>\n";
@@ -73,32 +58,55 @@ function driverinfo() {
             $content .= "<option value='-1'>Ny förare</option>\n";
         }
 // Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
-        foreach ($user->users() as $user_data_id=>$userdata) { 
+        foreach ($user->users() as $user_data_id => $userdata) {
             $mark_selected = ($user_data_id == $selected_driver) ? 'SELECTED' : '';
             $content .= "<option value='{$user_data_id}' {$mark_selected}>{$userdata['name']}</option>\n";
         }
-        $content .= "</select>";
-        $content .= "</div>";
-        $content .= "<div class='driver-form-label'><input type='submit' value='Visa'></br>\n";
+        $content .= "</select>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-label'><input type='submit' value='Visa'>\n";
         $content .= "</div>\n";
         $content .= "</fieldset>\n";
-        $content .= "<div id='form-driverinfo'></br>\n";
-        $content .= "<form action='' method='post'></br>\n";
-        $content .= "<fieldset></br>\n";
+        $content .= "<div id='form-driverinfo'>\n";
+        $content .= "<form action='' method='post'>\n";
+        $content .= "<fieldset>\n";
         $content .= "<legend>Förarinfo</legend>\n";
+    }
+    $content .= "<div class='driver-form-row'>\n";
+    $content .= "<div class='driver-form-label'>\n<label>\nNamn  \n</label>\n</div>\n";
+    $content .= "<div class='driver-form-input'>\n<input id='name' type='text' name='name' value='{$current_driver->name()}'>\n";
+    $content .= "</div>\n";
+    $content .= "<div class='driver-form-row'>\n";
+    $content .= "<div class='driver-form-label'>\n<label>\nVisas \n</label>\n</div>\n";
+    $content .= "<div class='driver-form-input'>\n<input id='display_name' type='text' name='display_name' value='{$current_driver->display_name()}'>\n\n";
+    $content .= "</div>\n";
+
+    if ($selected_driver < 0) {
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'>\n<label>\nInloggning  \n</label>\n</div>\n";
+        $content .= "<div class='driver-form-input'>\n<input id='acronym' type='text' name='acronym' value='{$driver->new_driver->acronym}'>\n</div>\n\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'>\n<label>Password  </label>\n</div>";
+        $content .= "<div class='driver-form-input'>\n<input id='password' type='text' name='password' value=''>\n</div>\n\n";
+        $content .= "</div>\n";
+        $content .= "<div class='driver-form-row'>\n";
+        $content .= "<div class='driver-form-label'>\n<label>\nRepetera  \n</label>\n</div>\n";
+        $content .= "<div class='driver-form-input'>\n<input id='password_check' type='text' name='password_check' value=''>\n</div>\n\n";
+        $content .= "</div>\n";
     }
 //här kommer fälten från user-posten
     foreach ($user->user_data($selected_driver) as $userdata) {
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'><label>{$userdata->user_data_descr}  </label></div>";
-        $content .= "<div class='driver-form-label'>";
-        $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'></br>\n";
+        $content .= "<div class='driver-form-label'>\n<label>\n{$userdata->user_data_descr}  \n</label>\n</div>";
+        $content .= "<div class='driver-form-label'>\n";
+        $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'>\n";
         $content .= "</div>\n";
     }
     if ($user->role() == 1) {
 
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<button type='submit'  name='save' value='1'>Spara</button></br>\n";
+        $content .= "<button type='submit'  name='save' value='1'>Spara</button>\n";
         $content .= "</div>\n";
     }
     $content .= "";
