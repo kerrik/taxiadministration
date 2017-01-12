@@ -197,7 +197,7 @@ class CCalendar {
             $day_name = $this->day_name(true, FALSE, $datum);
             $sunday = '';
             if($day_name == 'S&ouml;'){
-            $day_css =  'sunday' ;
+            $sunday =  'sunday' ;
             $day_css = 'cal-date-name-field_sun';
             }elseif ($day_name == 'M&aring;'){
             $day_css =  'cal-date-name-field_mon'; 
