@@ -7,7 +7,6 @@ if (isset($_POST['logout'])) {
         include 'webroot/start.php';
 } elseif (stristr($_SERVER['REQUEST_URI'], '.php') != FALSE){
     include 'webroot/' .  stristr($_SERVER['REQUEST_URI'], '.php', TRUE) . '.php';
-    echo 'här';
 }else{
     $include = (stristr($_SERVER['REQUEST_URI'], '?', TRUE) ? stristr($_SERVER['REQUEST_URI'], '?', TRUE) : $_SERVER['REQUEST_URI']);
     include "webroot/{$include}.php";

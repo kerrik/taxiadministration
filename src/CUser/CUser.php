@@ -32,7 +32,7 @@ class CUser {
         // Fyller $users med alla användare
         global $db;
         $sql = 'SELECT * FROM User ORDER BY name;';
-        $row = $db->query_DB($sql, array(), false);
+        $row = $db->query_DB($sql, array(), FALSE);
         if ($row) {
             do {
                 $users[] = $row;
@@ -74,11 +74,7 @@ class CUser {
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-        if ($id <-1) {
-            foreach ($user_data as $row) {
-                $row->value = $_POST[$row->user_data_descr];
-            }
-        }
+        
         return $user_data;
     }
 
@@ -88,7 +84,7 @@ class CUser {
             global $db;
             $sql = "SELECT id, acronym, name, role FROM User WHERE id = ?;";
             $this->user = $db->query_DB($sql, array($_SESSION['user']), FALSE);
-            $this->user->logged_in = isset($this->user->id) ? true : false;
+            $this->user->logged_in = isset($this->user->id) ? TRUE : FALSE;
         } else {
             $this->user['logged_in'] = false;
             $this->user = (object) $this->user;
@@ -109,7 +105,7 @@ class CUser {
     private function get_user_by_id($id){
         global $db;
         $sql= "SELECT id, display_name, name FROM User WHERE id=?;";
-        $return = $db->query_DB($sql,array($id),true);
+        $return = $db->query_DB($sql,array($id),FALSE);
         return $return;
     }
 

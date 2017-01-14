@@ -27,7 +27,9 @@ include( __DIR__ . '/config.php');
 $tango->set_property('title', "Förare");
 $tango->set_property('title_append', "Administrera förare");
 
-include_once TANGO_FUNCTIONS_PATH . "driver_funct.php";
+$tango->set_property('style', array('css', 'webroot/js/jquery/include/jquery-ui-1.12.1.custom/jquery-ui.css'));
+$tango->js_include("https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js");
+$tango->js_include('webroot/js/driver.js');
 
 $tango->set_property('main', driverinfo());
 
@@ -36,14 +38,14 @@ include_once (TANGO_THEME_PATH);
 
 function driverinfo() {
 //fyller $tango med lite data att skriva ut...
-    $current_driver = new CDriver;
     global $user;
-    $driver = save_driver();
-    $selected_driver = $driver->id;
+    $current_driver = new CDriver;
+    
+    $selected_driver = $current_driver->id();
 //#####################################################################
 
     $content = "<div id='form-driver'>\n";
-    $content .= "<form action='' method='post'>\n";
+    $content .= "<form id='select-driver' action='' method='post'>\n";
     $content .= "<fieldset>\n";
     $content .= "<legend>\nFörare\n</legend>\n";
     $content .= "<p>\n";
@@ -52,20 +54,20 @@ function driverinfo() {
     } else {
 // Här börjar rutintn för inloggad förare        
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<select name='use_driver'>";
+        $content .= "<select id='use-driver'  name='use_driver'>";
 // Om inloggad är admin val för ny förare
         if ($user->role() == 1 AND $selected_driver != -1) {
             $content .= "<option value='-1'>Ny förare</option>\n";
         }
 // Dörarna läggs in i select-kontrollen. Inloggad markeras som vald
-        foreach ($user->users() as $user_data_id => $userdata) {
+        foreach ($user->users() as $user_data_id => $driver_data) {
             $mark_selected = ($user_data_id == $selected_driver) ? 'SELECTED' : '';
-            $content .= "<option value='{$user_data_id}' {$mark_selected}>{$userdata['name']}</option>\n";
+            $content .= "<option value='{$user_data_id}' {$mark_selected}>{$driver_data['name']}</option>\n";
         }
         $content .= "</select>\n";
         $content .= "</div>\n";
-        $content .= "<div class='driver-form-label'><input type='submit' value='Visa'>\n";
-        $content .= "</div>\n";
+//        $content .= "<div class='driver-form-label'>\n<input id='visa' type='submit' value='Visa'>\n";
+//        $content .= "</div>\n";
         $content .= "</fieldset>\n";
         $content .= "<div id='form-driverinfo'>\n";
         $content .= "<form action='' method='post'>\n";
@@ -84,7 +86,7 @@ function driverinfo() {
     if ($selected_driver < 0) {
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>\nInloggning  \n</label>\n</div>\n";
-        $content .= "<div class='driver-form-input'>\n<input id='acronym' type='text' name='acronym' value='{$driver->new_driver->acronym}'>\n</div>\n\n";
+        $content .= "<div class='driver-form-input'>\n<input id='acronym' type='text' name='acronym' value='{$current_driver->acronym()}'>\n</div>\n\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>Password  </label>\n</div>";
@@ -96,17 +98,17 @@ function driverinfo() {
         $content .= "</div>\n";
     }
 //här kommer fälten från user-posten
-    foreach ($user->user_data($selected_driver) as $userdata) {
+    foreach ($current_driver->driver_data($selected_driver) as $driver_data) {
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'>\n<label>\n{$userdata->user_data_descr}  \n</label>\n</div>";
+        $content .= "<div class='driver-form-label'>\n<label>\n{$driver_data->user_data_descr}  \n</label>\n</div>";
         $content .= "<div class='driver-form-label'>\n";
-        $content .= "<input type='text' name='{$userdata->user_data_descr}' value='{$userdata->value}'>\n";
+        $content .= "<input type='text' name='{$driver_data->user_data_descr}' value='{$driver_data->value}'>\n";
         $content .= "</div>\n";
     }
     if ($user->role() == 1) {
 
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<button type='submit'  name='save' value='1'>Spara</button>\n";
+        $content .= "<button id='save' type='submit'  name='save' value='1'>Spara</button>\n";
         $content .= "</div>\n";
     }
     $content .= "";

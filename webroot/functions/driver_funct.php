@@ -12,11 +12,11 @@
  * @author peder
  */
 function save_driver() {
-    dump($_POST);
+    dump($_POST, '$_POST i save_driver');
     global $db;
     global $user;
     $test=$user->show_user(6);
-    dump($test, 'show_user');
+    dump($test, 'show_user i save_driver()');
     $return = new stdClass();
     $return->new_driver = check_password();
     $return->id = (isset($_POST['use_driver'])) ? $_POST['use_driver'] : $_SESSION['user'];

@@ -6,11 +6,11 @@
  */
 
 function print_a($array, $info = '') {
-    echo  "\n" . $info;
+    echo  "</br>" . $info;
     ?><pre><?php print_r($array); ?></pre><?php
 }
 
 function dump($array, $info = '') {
-    echo  "\n" . $info;
+    echo  "</br>" . $info;
     ?><pre><?php var_dump($array); ?></pre><?php
 }
