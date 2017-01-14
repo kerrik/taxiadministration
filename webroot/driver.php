@@ -105,7 +105,7 @@ function driverinfo() {
         $content .= "<input type='text' name='{$driver_data->user_data_descr}' value='{$driver_data->value}'>\n";
         $content .= "</div>\n";
     }
-    if ($user->role() == 1) {
+    if ($user->role() == 1 OR $selected_driver==$_SESSION['user']) {
 
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<button id='save' type='submit'  name='save' value='1'>Spara</button>\n";
