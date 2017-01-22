@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 
-$(document).ready(function(){
+$(document).ready(function(){ 
+    
+    $("#select-cab").change(function () {
+        $("#cab-info").submit();
+    });
     
     $(function () {
         $('.pass').timeEntry({spinnerImage: ''});

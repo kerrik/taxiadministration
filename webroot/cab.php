@@ -52,8 +52,8 @@ function cabinfo() {
 //    $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
 ////#####################################################################
 
-    $content = "<div id='form-cab'>\n";
-    $content .= "<form id='car-info' action='' method='post'>\n";
+    $content = "<div id='form-block'>\n";
+    $content .= "<form id='cab-info' action='' method='post'>\n";
     $content .= "<fieldset>\n";
     $content .= "<legend>\nBilinfo\n</legend>\n";
     if ($selected_cab < 0) {
@@ -61,7 +61,7 @@ function cabinfo() {
     }else{
         $content .= "<div class='cab-form-row'>\n";
         $content .= "<div class='cab-form-label'>\n";
-        $content .= "<select name='use_cab'>\n";
+        $content .= "<select id='select-cab' name='current_cab'>\n";
         if ($user->role() == 1 AND $selected_cab != -1) {
             $content .= "<option value='-1'>Ny bil</option>\n";
         }
@@ -93,7 +93,7 @@ function cabinfo() {
         $content.="<input type='hidden' name='key[]' value='{$cabdata->data_descr}'>\n";        
         $content.="<input type='hidden' name='user_data_id[]' value='{$cabdata->car_id}'>\n";
         $content.="<input type='hidden' name='post_id[]' value='{$cabdata->id}'>\n"; 
-        $content .= "</div>\n";
+        $content .= "</div>\n</div>\n";
     }
         $content .= "</div>\n";
     $content .= "<div class='cab-form-block left'>\n";

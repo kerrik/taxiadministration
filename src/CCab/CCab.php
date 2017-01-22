@@ -14,8 +14,11 @@ class CCab {
     public function __construct() {
         $this->cab = (object) $this->cab;
         $this->get_cabs();
+        $this->cab->current_cab = (empty($_POST['current_cab'])) ? $this->cab->current_cab  : $_POST['current_cab'];
         $this->get_cab($this->cab->current_cab);
         $this->get_cab_data($this->cab->current_cab);
+        $this->extract_post();
+        print_a($this->cab);
 //        if(isset($this->cab_save)){};
 //        $this->cab->id = (isset($this->cab->use_cab)) ? $this->cab->use_cab : $_SESSION['user'];
 //
@@ -29,17 +32,15 @@ class CCab {
 //        $this->cab = (object) $this->cab;
 //        $this->get_cabs();
     }
-    
-    
+
     private function get_cab($current_cab) {
         // Fyller $cabs med alla användare
         global $db;
         $sql = 'SELECT * FROM cab ORDER BY cab;';
         $row = $db->query_DB($sql, array(), FALSE);
-        foreach ($row as $key=>$data){
-            $this->cab->{$key}=$data;
+        foreach ($row as $key => $data) {
+            $this->cab->{$key} = $data;
         }
-        echo 'hepp';
         $this->cab->pass_time = unserialize($this->cab->pass_time);
     }
 
@@ -86,12 +87,11 @@ class CCab {
                 $row_data['id'] = $row->id;
                 $row_data['value'] = $row->value;
                 $row_data['value_dec'] = $row->value_dec;
-                $cab_data[$row->data_descr]=(object)$row_data;
+                $cab_data[$row->data_descr] = (object) $row_data;
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
         $this->cab->cab_data = (object) $cab_data;
-        print_a($this->cab);
 //        if ($id < 0) {
 //            foreach ($cab_data as $row) {
 //                $row->value = $_POST[$row->cab_data_descr];
@@ -127,7 +127,6 @@ class CCab {
     }
 
     public function cabs() {
-        print_a($this->cab);
         $return = $this->cab->cabs;
         return $return;
     }
@@ -135,12 +134,13 @@ class CCab {
     public function id() {
         return $this->cab->current_cab;
     }
+
     public function cab_data() {
         return $this->cab->cab_data;
-        
     }
+
     public function pass_time() {
         return $this->cab->pass_time;
-        
     }
+
 }
