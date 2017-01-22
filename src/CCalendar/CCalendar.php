@@ -185,7 +185,6 @@ class CCalendar {
                 $row = $db->fetch_DB();
             } while (!$row == false);
         }
-//        print_a($calendar_data);
         $this->calendar_data = $calendar_data;
     }
 
@@ -208,7 +207,6 @@ class CCalendar {
             $cab_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date-name-field'>\n</div>\n<div class='cal-date-name-field'>\n</div>\n";
             $pass_name_row = "<div class='cal-form-row cal_sub_heading'>\n<div class='cal-date-name-field'>\n</div>\n<div class='cal-date-name-field'>\n</div>\n";
             foreach ($cab as $cabdata => $pass) {
-//                print_a($cabdata, 'passdata');
                 $cab_row .= "<div class='bil-rubrik'>\n{$cabdata}\n</div>";
                 $pass_name_row .= "<div class='pass-rubrik'>\nDag\n</div>\n<div class='pass-rubrik'>\nNatt\n</div>\n";
 //                $the_calendar[$pass][]= ( $pass == 0) ? "<div class='bil-day'>" : "<div class='bil-night'>";
@@ -221,7 +219,6 @@ class CCalendar {
         }
         $this->the_calendar['cab'] = !empty($cab_row) ? $cab_row . "</div><!--efter row-->\n" : '';
         $this->the_calendar['pass_name'] = !empty($pass_name_row) ? $pass_name_row . "</div><!--efter row-->\n" : '';
-//        print_a($this->the_calendar, 'the_calendar');
     }
 
     private function redigera_post($datum, $driver) {

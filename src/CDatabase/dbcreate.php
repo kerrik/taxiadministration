@@ -30,7 +30,7 @@ INSERT INTO User (acronym,display_name, name, role, salt) VALUES
     ('jerry','Jerry', 'Jerry', 10, unix_timestamp()),
     ('admamfr','Adam', 'Adams Freimanis', 10, unix_timestamp()),
     ('johangr','Johan', 'Johan Granlund', 10, unix_timestamp()),
-    ('larsna','Lars-Åke', 'Lars-Åke Näsman', 10, unix_timestamp()),
+    ('larsna','Lars-Åke', 'Lars Åke Näsman', 10, unix_timestamp()),
     ('hansf','Hans', 'Hans Fredriksson', 1, unix_timestamp())
 ;
 UPDATE User SET password = md5(concat('pederno', salt)) WHERE acronym = 'pedern';
@@ -89,8 +89,21 @@ INSERT INTO user_data (user, user_data_id, value) VALUES
     ('1', 2, '08 32 75 76'),        
     ('1', 3, '0769 308 308'),        
     ('1', 4, 'Islinte hamnväg 11 Lidingö'),
-    ('2', 1, '1234567');
-     
+    ('2', 2, ''),        
+    ('2', 3, ''),        
+    ('2', 4, ''),
+    ('3', 2, ''),        
+    ('3', 3, ''),        
+    ('3', 4, ''),
+    ('4', 2, ''),        
+    ('4', 3, ''),        
+    ('4', 4, ''),
+    ('5', 2, ''),        
+    ('5', 3, ''),        
+    ('5', 4, ''),
+    ('6', 2, ''),        
+    ('6', 3, ''),        
+    ('6', 4, '')
 EOF
     ); //end $dbcreate
 

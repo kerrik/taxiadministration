@@ -56,7 +56,9 @@ class CUser {
                   user_data_descr,
                   value,
                   value_dec,
-                  user_data_key.user_data_id 
+                  user_data_key.user_data_id,
+                  user_data.id
+                  
                 FROM
                   user_data_key
                 LEFT JOIN

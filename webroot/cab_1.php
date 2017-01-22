@@ -36,6 +36,9 @@ $tango->js_include('webroot/js/jquery.timeentry/jquery.timeentry-sv.js');
 $tango->js_include( 'webroot/js/caradmin.js');
 include_once TANGO_FUNCTIONS_PATH . "cab_funct.php";
 
+$cab = new CCab();
+
+save_cab();
 
 $tango->set_property('main', cabinfo());
 
@@ -44,29 +47,41 @@ include_once (TANGO_THEME_PATH);
 
 function cabinfo() {
 //fyller $tango med lite data att skriva ut...
+    global $cab;
     global $user;
-    $current_cab=new CCab;
     
-    $selected_cab=$current_cab->id();
-    
-//    $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
+    $selected_cab = (isset($_POST['use_cab'])) ? $_POST['use_cab'] : $_SESSION['cab'];
 ////#####################################################################
 
     $content = "<div id='form-cab'>\n";
-    $content .= "<form id='car-info' action='' method='post'>\n";
+    $content .= "<form action='' method='post'>\n";
     $content .= "<fieldset>\n";
-    $content .= "<legend>\nBilinfo\n</legend>\n";
-    if ($selected_cab < 0) {
-        $content .="<input type='hidden' name='use_car' value=-2>\n";
-    }else{
+    $content .= "<legend>\nFörare\n</legend>\n";
+    if ($selected_cab == -1) {
+        $content .= "<div class='cab-form-row'>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Inloggning  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='acronym' value=''></div>\n</br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='cab-form-row'>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Namn  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='name' value=''></br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='cab-form-row'>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Password  </label>\n</div>\n<!-- cab-form-label -->";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='password' value=''></div>\n</br>\n";
+        $content .= "</div>\n";
+        $content .= "<div class='cab-form-row'>\n";
+        $content .= "<div class='cab-form-label'>\n<label>Repetera  </label>\n</div>\n";
+        $content .= "<div class='cab-form-input'>\n<input type='text' name='password_check' value=''></div>\n</br>\n";
+        $content .= "</div>\n";
+    } else {
         $content .= "<div class='cab-form-row'>\n";
         $content .= "<div class='cab-form-label'>\n";
         $content .= "<select name='use_cab'>\n";
         if ($user->role() == 1 AND $selected_cab != -1) {
             $content .= "<option value='-1'>Ny bil</option>\n";
         }
-        $test=$current_cab->cabs();
-        foreach ($current_cab->cabs() as $cabdata) {
+        foreach ($cab->cabs() as $cabdata) {
             $mark_selected = ($cabdata->id == $selected_cab) ? 'SELECTED' : '';
             $content .= "<option value='{$cabdata->id}' {$mark_selected}>{$cabdata->cab}</option>\n";
         }
@@ -85,14 +100,11 @@ function cabinfo() {
         $content .= "<div class='cab-form-content'>\n";
         $content .= "<div class='cab-form-block left'>\n";
     }
-    foreach ($current_cab->cab_data($selected_cab) as $cabdata) {
-        $content .= "<div class='driver-form-row'>\n";
-        $content .= "<div class='driver-form-label'>\n<label>\n{$cabdata->data_descr}  \n</label>\n</div>";
-        $content .= "<div class='driver-form-label'>\n";
-        $content .= "<input type='text' name='value[]' value='{$cabdata->value}'>\n";
-        $content.="<input type='hidden' name='key[]' value='{$cabdata->data_descr}'>\n";        
-        $content.="<input type='hidden' name='user_data_id[]' value='{$cabdata->car_id}'>\n";
-        $content.="<input type='hidden' name='post_id[]' value='{$cabdata->id}'>\n"; 
+    foreach ($cab->cab_data($selected_cab) as $cabdata) {
+        $content .= "<div class='cab-form-row'>\n";
+        $content .= "<label class='cab-form-label'>\n{$cabdata->data_descr}</label>\n";
+        $content .= "<div class='cab-form-label'>\n"
+                . "<input type='text' name='{$cabdata->data_descr}' value='{$cabdata->value}'>\n</div>\n";
         $content .= "</div>\n";
     }
         $content .= "</div>\n";
@@ -110,6 +122,6 @@ function cabinfo() {
     $content .= "</fieldset>\n";
     $content .= "</form>\n";
     $content .= "</div>\n";
-//    $cab->pass_time($selected_cab);
+    $cab->pass_time($selected_cab);
     return $content;
 }

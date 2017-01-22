@@ -21,7 +21,7 @@ $content .= "\n<!-- Här börjar rutinten för att skapa inmatningsfält för pa
 //$content .= "</div><!-- end cab-form-row -->\n";
 
 
-$tider = $cab->pass_time();
+$tider = $current_cab->pass_time();
 $pass = 0;
 $day = 0;
 $content .= "<div class='cab-form-row'>\n<div class='field'>\n";

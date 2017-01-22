@@ -69,10 +69,12 @@ function driverinfo() {
 //        $content .= "<div class='driver-form-label'>\n<input id='visa' type='submit' value='Visa'>\n";
 //        $content .= "</div>\n";
         $content .= "</fieldset>\n";
+        $content.="</form>";
         $content .= "<div id='form-driverinfo'>\n";
         $content .= "<form action='' method='post'>\n";
         $content .= "<fieldset>\n";
         $content .= "<legend>Förarinfo</legend>\n";
+        $content .= "<input type='hidden' name='use_driver' value={$current_driver->id()}>\n";
     }
     $content .= "<div class='driver-form-row'>\n";
     $content .= "<div class='driver-form-label'>\n<label>\nNamn  \n</label>\n</div>\n";
@@ -98,17 +100,21 @@ function driverinfo() {
         $content .= "</div>\n";
     }
 //här kommer fälten från user-posten
-    foreach ($current_driver->driver_data($selected_driver) as $driver_data) {
+    foreach ($current_driver->driver_data() as $driver_data) {
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>\n{$driver_data->user_data_descr}  \n</label>\n</div>";
         $content .= "<div class='driver-form-label'>\n";
-        $content .= "<input type='text' name='{$driver_data->user_data_descr}' value='{$driver_data->value}'>\n";
+        $content .= "<input type='text' name='value[]' value='{$driver_data->value}'>\n";
+        $content.="<input type='hidden' name='key[]' value='{$driver_data->user_data_descr}'>\n";        
+        $content.="<input type='hidden' name='user_data_id[]' value='{$driver_data->user_data_id}'>\n";
+        $content.="<input type='hidden' name='post_id[]' value='{$driver_data->id}'>\n"; 
         $content .= "</div>\n";
+        
     }
     if ($user->role() == 1 OR $selected_driver==$_SESSION['user']) {
 
         $content .= "<div class='driver-form-row'>\n";
-        $content .= "<button id='save' type='submit'  name='save' value='1'>Spara</button>\n";
+        $content .= "<button id='save' type='submit'  name='save' value='{$selected_driver}'>Spara</button>\n";
         $content .= "</div>\n";
     }
     $content .= "";
