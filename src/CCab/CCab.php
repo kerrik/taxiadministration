@@ -18,7 +18,6 @@ class CCab {
         $this->get_cab($this->cab->current_cab);
         $this->get_cab_data($this->cab->current_cab);
         $this->extract_post();
-        print_a($this->cab);
 //        if(isset($this->cab_save)){};
 //        $this->cab->id = (isset($this->cab->use_cab)) ? $this->cab->use_cab : $_SESSION['user'];
 //
