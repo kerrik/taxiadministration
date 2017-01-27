@@ -16,7 +16,6 @@ class CDriver {
     private $driver = '';
 
     public function __construct() {
-        dump($_POST);
 
         $this->driver = (object) $this->driver;
         $this->extract_post();

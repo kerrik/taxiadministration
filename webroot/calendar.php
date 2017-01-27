@@ -90,27 +90,13 @@ function test() {
         $cont .= "<form id= 'update_calendar' name= 'update' action='' method='post' >";
         $cont .= "<input type= 'submit' name='update' value='Uppdatera' />";
         $cont .= "</form>";
-    } elseif ($user->role() == 1 OR ) {
+    } elseif ($user->role() == 1) {
         $cont .= "<div class='cab-form-row'>\n";
         $cont .= "<form id= 'create_calendar' name= 'create' action='' method='post' >";
         $cont .= " <input type= 'submit' name='create' value='Skapa kalender' />";
         $cont .= "</form>";
     }
     $cont .= "</div>";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
-    $cont .= "";
     $cont .= "</div><!-- #calendar -->\n";
     $cont .= "</div><!-- .form_row -->\n";
 

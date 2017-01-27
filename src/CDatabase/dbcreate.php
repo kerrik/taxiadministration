@@ -135,7 +135,7 @@ EOF
 
 
 $dbcreate[] = array('type'=>'TABLE', 'name'=>'data_value' , 'sql'=> <<<EOF
-    CREATE TABLE data_value
+    CREATE TABLE IF NOT EXISTS data_value
 (
   id INT AUTO_INCREMENT PRIMARY KEY,
   parent int,

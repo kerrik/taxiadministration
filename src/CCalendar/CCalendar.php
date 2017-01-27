@@ -226,9 +226,15 @@ class CCalendar {
         // skapavariabel med datum förare kan ändra datum från
         static $driver_change = DRIVER_CHANGE; // Antal dagar för möjlighet till redigering. Konstant sätts i config.php
         $retur = ''; //
+        //Först gör vi det möjligt att redigera sin post om datumet är det antal dagar framåt som satts i config
         if ($datum > date('Y-m-d', strtotime("+{$driver_change} days"))) {
             $retur = ($driver === $user->id() || empty($driver)) ? ' redigera' : '';
         }
+        //sedan ger vi möjlighet att sätta in sig på en fridag.
+        if ($datum >= date('Y-m-d')) {
+            $retur = ($driver === $user->id() || empty($driver)) ? ' redigera' : '';
+        }
+        //sist ... Admin får alltid korrigera
         $retur = ($user->user_role() == 1) ? ' redigera' : $retur;
         return $retur;
     }

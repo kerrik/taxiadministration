@@ -78,7 +78,7 @@ function driverinfo() {
     }
     $content .= "<div class='driver-form-row'>\n";
     $content .= "<div class='driver-form-label'>\n<label>\nNamn  \n</label>\n</div>\n";
-    $content .= "<div class='driver-form-input'>\n<input id='name' type='text' name='name' value='{$current_driver->name()}'>\n";
+    $content .= "<div class='driver-form-input'>\n<input id='name' type='text' name='name' value='{$current_driver->name()}' autocomplete='off'>\n";
     $content .= "</div>\n";
     $content .= "<div class='driver-form-row'>\n";
     $content .= "<div class='driver-form-label'>\n<label>\nVisas \n</label>\n</div>\n";
@@ -88,23 +88,23 @@ function driverinfo() {
     if ($selected_driver < 0) {
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>\nInloggning  \n</label>\n</div>\n";
-        $content .= "<div class='driver-form-input'>\n<input id='acronym' type='text' name='acronym' value='{$current_driver->acronym()}'>\n</div>\n\n";
+        $content .= "<div class='driver-form-input'>\n<input id='acronym' type='text' name='acronym' value='{$current_driver->acronym()}' autocomplete='off'>\n</div>\n\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>Password  </label>\n</div>";
-        $content .= "<div class='driver-form-input'>\n<input id='password' type='text' name='password' value=''>\n</div>\n\n";
+        $content .= "<div class='driver-form-input'>\n<input id='password' type='text' name='password' value='' autocomplete='off'>\n</div>\n\n";
         $content .= "</div>\n";
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>\nRepetera  \n</label>\n</div>\n";
-        $content .= "<div class='driver-form-input'>\n<input id='password_check' type='text' name='password_check' value=''>\n</div>\n\n";
+        $content .= "<div class='driver-form-input'>\n<input id='password_check' type='text' name='password_check' value='' autocomplete='off'>\n</div>\n\n";
         $content .= "</div>\n";
     }
 //här kommer fälten från user-posten
-    foreach ($current_driver->driver_data() as $driver_data) {
+    foreach ($current_driver->driver_data($selected_driver) as $driver_data) {
         $content .= "<div class='driver-form-row'>\n";
         $content .= "<div class='driver-form-label'>\n<label>\n{$driver_data->user_data_descr}  \n</label>\n</div>";
         $content .= "<div class='driver-form-label'>\n";
-        $content .= "<input type='text' name='value[]' value='{$driver_data->value}'>\n";
+        $content .= "<input type='text' name='value[]' value='{$driver_data->value}' autocomplete='off'>\n";
         $content.="<input type='hidden' name='key[]' value='{$driver_data->user_data_descr}'>\n";        
         $content.="<input type='hidden' name='user_data_id[]' value='{$driver_data->user_data_id}'>\n";
         $content.="<input type='hidden' name='post_id[]' value='{$driver_data->id}'>\n"; 

@@ -28,7 +28,7 @@ if( $user->logged_in()){
     $tango->main_content("<p><input type='submit' name='logout' value='Logout'/></p>");
 }else{
     $tango->main_content( <<<EOD
-        <p><label>Användare:<br/><input type='text' name='acronym' value=''/></label></p>
+        <p><label>Användare:<br/><input type='text' name='acronym' value='' autocomplete='off'/></label></p>
         <p><label>Lösenord:<br/><input type='password' name='password' value=''/></label></p>
         <p><input type='submit' name='login' value='Login'/></p>
         </fieldset>

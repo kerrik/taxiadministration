@@ -31,7 +31,7 @@ for ($pass = 0; $pass < 2; $pass++) {
     $content .= "Pass " . $pass_etikett;
     $content .= "\n</div>\n";
 }
-$content .= "</div>\n";
+$content .= "</div>\n</div>\n";
 for ($day = 0; $day < 7; $day++) {
     $content .= "<div class='cab-form-row'>\n";
     for ($pass = 0; $pass < 2; $pass++) {

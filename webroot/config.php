@@ -66,10 +66,6 @@ if ($use_db) {
 
 
     // Först skapar vi en array för att föra in inloggningsuppgifter i databasklassen
-    $db_connect['dsn'] = 'mysql:host=turakarna2-159065.mysql.binero.se;dbname=159065-turakarna2;';
-    $db_connect['username'] = '159065_ut55346';
-    $db_connect['password'] = 't[r4k4rn42';
-    $db_connect['driver_options'] = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'");
 
     // Först skapar vi en array för att föra in inloggningsuppgifter i databasklassen
 //    $db_connect['dsn']            = 'mysql:host=tst-159065.mysql.binero.se;dbname=159065-tst;';
